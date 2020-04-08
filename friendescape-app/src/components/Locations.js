@@ -1,7 +1,9 @@
 import React from 'react'
-import '../sass/components/home.sass'
+import '../sass/components/locations.sass'
 import Logo from '../images/FriendEscape.png'
 import Map from './Map.js'
+
+
 
 
 
@@ -32,7 +34,7 @@ export default function ({user, onHandleGoHome, onHandleLogOut}) {
 
      
          <div className='container-map'>
-         <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
+         <button className="btn--main" onClick={handleGoToHome} >Go Back</button>
             <Map />
          </div>
    </>

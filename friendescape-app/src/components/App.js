@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState} from 'react'
 import { Register, Login, CreateGroup, Page, Landing, Home, Themes, SelectedDifficulty, SelectedThemes, Locations, ERDetail, Groups, Difficulty} from '../components'
-import { registerUser, retrieveUser, login, logout, isLoggedIn,search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, retrieveGroups} from '../logic'
+import { registerUser, retrieveUser, login, logout, isLoggedIn,search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, createGroup, retrieveGroups} from '../logic'
 import { Context } from './ContextProvider'
 import 'moment-timezone'
 import { Route, withRouter, Redirect } from 'react-router-dom'
@@ -21,6 +21,7 @@ export default withRouter(function ({ history }) {
   const [group, setGroupList] = useState([])
   const [difficulty, setDifficulty] = useState([])
   const [theme, setTheme] = useState([])
+
 
 
 
@@ -291,13 +292,33 @@ async function handleJoinGroups(id){
 }
 
 async function handleCreateAGroup(){
+  try {
+    const user = await retrieveUser()
+
+    setUser(user)
+    const availableEscapes = await escapeList()
+    setEscapeList(availableEscapes)
+
+  history.push('/create-group')
+      } catch ({ message }) {
+    setState({ ...state, error: message })
+      }
+    }
+    
+
+async function handleNewGroup(id){
   try{
-   
+    await createGroup(id)
+    const message = " You created a new group, please check your email"
+    setState({ ...state, error: message })
     history.push('/create-group')
   } catch ({ message }) {
     setState({ error: message })
   }
 }
+
+
+
 
   return <div>
 
@@ -319,7 +340,7 @@ async function handleCreateAGroup(){
       <Route path='/themes/fear' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFear={handleFear}/>: <Redirect to ="landing" />} />
       <Route path='/themes/criminal' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleCriminal={handleCriminal}/>: <Redirect to ="landing" />} />
       <Route path='/themes/historical' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleHistorical={handleHistorical} />: <Redirect to ="landing" />} />
-      <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup   user={user} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} />: <Redirect to ="landing" />} />
+      <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup   user={user} availableGroups={group} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} />: <Redirect to ="landing" />} />
     </Page>
 
   </div>

@@ -1,13 +1,15 @@
-import React, { useEffect, useContext, useState} from 'react'
+import React, { useState} from 'react'
 import Logo from '../images/FriendEscape.png'
 import InfiniteCalendar from 'react-infinite-calendar'
 import 'react-infinite-calendar/styles.css'
 import TimeKeeper from 'react-timekeeper'
 
 
-export default function ({ user, onHandleLogOut, onHandleGoHome, error}) {
+export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateANewGroup, availableEscapes}) {
     const {name} = user
+    // const {title, location, punctuation, theme, difficulty, duration, price, minplayers, maxplayers, img} = availableEscapes
     const [time, setTime] = useState('12:34pm')
+    debugger 
     
     function handleLogOut(event){
         event.preventDefault()
@@ -18,6 +20,11 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, error}) {
         event.preventDefault()
         onHandleGoHome()
      }
+
+    function handleGoToCreateAGroup(event){
+        event.preventDefault()
+        onHandleCreateANewGroup()
+    }
 
 
      var today = new Date()
@@ -40,10 +47,11 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, error}) {
         <div className="creategroup">
         <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
             <h1>CREATE A NEW GROUP</h1>
-            <select name="select">
-                <option value="value1">Value 1</option> 
-                <option value="value2" selected>Value 2</option>
-                <option value="value3">Value 3</option>
+
+            <select value={this.state.selectedEscape}
+              onChange={(e) => this.setState({selectedEscape: e.target.value})}>
+            
+            {availableEscapes.map((group) => <option key={group.title} value={group.title}>{group.display}</option>)}
             </select>
             
             <InfiniteCalendar
@@ -78,7 +86,7 @@ onClick={() => alert('new time is now', newTime.formatted12)}
                 )}
             />
 <span>Time is {time}</span>
-
+<button onClick={handleGoToCreateAGroup} className="main__btn"> Create a Group </button>>
 
 
     </>

@@ -18,7 +18,7 @@ return <>
 </div>
 </div>
 
-<section class="joinus__caution">
+<section className="joinus__caution">
         <p>Read carefully these instructions. If you press Join Group you will be a new member of the group. If you are a show off you will receive a fault. If you commit 3 faults you will be banned.</p>
         <button>Join Group</button>
         <button>Return</button>

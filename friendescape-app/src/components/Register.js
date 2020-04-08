@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import '../sass/components/register.sass'
-// import Feedback from './Feedback'
+import Feedback from './Feedback'
 import Logo from '../images/FriendEscape.png'
 
 export default function ({ onSubmit, onGoToLogin, error, onMount }) {
@@ -76,12 +76,15 @@ export default function ({ onSubmit, onGoToLogin, error, onMount }) {
             </p>
         </div>
 
-        <button type="submit" className="btn--main"><i class="fas fa-pencil-alt"></i>Register</button>
-        <a href="" className="btn--main" onClick={handleGoToLogin}><i class="fas fa-user"></i>Login</a>
+        <br></br>
+            {error && <Feedback message={error} level="error"/>}
+
+        <button type="submit" className="btn--main"><i className="fas fa-pencil-alt"></i>Register</button>
+        <a href="" className="btn--main" onClick={handleGoToLogin}><i className="fas fa-user"></i>Login</a>
 
 
         </form>
-        {/* {error && <Feedback message={error} level="warn" />} */}
+       
     </section>
     <br></br>
     </>
