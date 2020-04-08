@@ -8,7 +8,7 @@ module.exports = new Schema({
     theme: { type: String, required: true },
     difficulty: { type: Number, required: true},
     duration: { type: String, required: true},
-    price: { type: Number, required: true},
+    price: { type: String, required: true},
     minplayers: { type: Number, required: true },
     maxplayers: { type: Number, required: true },
     img: { type: String, required: true},
