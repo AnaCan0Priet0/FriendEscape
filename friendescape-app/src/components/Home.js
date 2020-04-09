@@ -82,7 +82,7 @@ export default function ({user, onHandleLocations, onCreateAGroup, onHandleDiffi
 
         <form className="search__form" onSubmit={handleGoToSearch}>
         <a className="burger fas fa-bars" onClick={handleOpenNav}></a>
-            <input type="text" name="escroom" placeholder="Search your escape room" onChange={handleGoToChangeSearch}/>
+            <input className="search__query" type="text" name="escroom" placeholder="Search your escape room" onChange={handleGoToChangeSearch}/>
         </form>
         <div className={menu ? "sidemenu active" : "sidemenu"}>
             <ul className="menu">
@@ -101,17 +101,17 @@ export default function ({user, onHandleLocations, onCreateAGroup, onHandleDiffi
         <span> Do you want to live one adventure but you don't know who will be as brave as you? <br/>
         Join one of our groups or create a new one and... Show must go on!!</span><br/>
 
-        <a href="" onClick = {handleGoToJoinGroups} className="main__btn">Join a group</a>
-        <br></br>
-        <a onClick={handleGoToCreateAGroup} className="main__btn"> Create a Group </a>
+        <a href="" onClick = {handleGoToJoinGroups} className="btn--main"><i class="fas fa-users"></i>Join a group</a>
+        <a onClick={handleGoToCreateAGroup} className="btn--main"><i class="fas fa-user-plus"></i>Create a Group </a>
 
 </section>
 
 
 
 {/* Search */}
-<div className="escapesroom search">
-    <p>Escapes Room</p>
+<div className="escapesroom cards search">
+    <h1 className="cards__title">Escapes Room</h1>
+
     <ul>
         {availableEscape.map(escape => <Item key={escape._id} item={escape} onGoToDetail={onGoToDetail} />)}
     </ul>

@@ -13,23 +13,22 @@
         display: flex
         margin: 3px 0 2px 50px
 i
-        padding-left: 8px
-
+    padding-left: 8px
 
 .search
-    display: flex
-    flex-direction: row
-    justify-content: space-around
-    align-items: center
-    height: 10%
-    width: 100%
+    padding: 10px
+    background: #d2d2d2
     &__main
         list-style: none
-
-
-
-.burger
-    margin-left: -7rem
+        .burger
+            font-size: 22px
+            margin-right: 8px
+    &__form
+        display: flex
+        align-items: center
+    &__query
+        width: calc(100% - 28px)
+        height: 30px
 
 .textMenu
     margin: 0.2em
@@ -49,13 +48,12 @@ i
     left: -999px
     background-color: #4e4b4b
     transition: ease 1s
-    background-color: steelblue;
+    background-color: steelblue
 .active
     left: 0
 
 .menu
     list-style-type: none
-
 
 .main
     display: flex
@@ -76,11 +74,35 @@ i
         text-shadow: 3px 3px 3px #006BFF
         margin: 20px
         text-decoration: none
+    &__groups
+        background: #fff
+        padding: 16px
+        line-height: 1.4
+        padding-bottom: 30px
+        .btn--main
+            min-width: 330px
+            margin: 22px auto 0 auto
+
 .escapesroom
     display: flex
     flex-direction: column
-.search
-    display:none
 
 .query
     list-style-type: none
+
+.cards
+    &__title
+        font-size: 28px
+        text-align: center
+        font-weight: bold
+    ul
+        list-style: none
+        padding: 0
+        margin: 0
+        li
+            background: #fff
+            padding: 4px 10px
+            border: 1px solid #c5c5c5
+            border-radius: 6px
+            box-shadow: 3px 3px 1px #b5b5b5
+            margin: 0 0 20px 0
