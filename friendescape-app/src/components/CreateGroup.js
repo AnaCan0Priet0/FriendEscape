@@ -9,7 +9,8 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     const {name} = user
     // const {title, location, punctuation, theme, difficulty, duration, price, minplayers, maxplayers, img} = availableEscapes
     const [time, setTime] = useState('12:34pm')
-    debugger 
+    const [selectedRoom, setSelectedRoom] = useState()
+     
     
     function handleLogOut(event){
         event.preventDefault()
@@ -48,13 +49,23 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
             <h1>CREATE A NEW GROUP</h1>
 
-            <select value={this.state.selectedEscape}
-              onChange={(e) => this.setState({selectedEscape: e.target.value})}>
-            
-            {availableEscapes.map((group) => <option key={group.title} value={group.title}>{group.display}</option>)}
+            <select 
+              onChange={event => {/*this.setState({selectedEscape: e.target.value})*/
+              event.preventDefault();
+              console.log(event.target.value)
+              const selected = availableEscapes.find(room => room._id === event.target.value)
+              debugger
+              setSelectedRoom(selected)
+              
+            }}>
+            <option value="select a escaperoom">Select a escapeRoom</option>
+            {availableEscapes && availableEscapes.map(escaperoom => <option key={escaperoom.title} value={escaperoom._id}>{escaperoom.title}</option>)}
             </select>
             
-            <InfiniteCalendar
+
+            {selectedRoom && <p>{selectedRoom.description}</p>}
+            
+            {selectedRoom && <InfiniteCalendar
     width={400}
     height={300}
     min={today}
@@ -63,7 +74,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         alert((date))
      }}
      
-  />
+  />}
 
 {/* <TimeKeeper 
 switchToMinuteOnHourSelect

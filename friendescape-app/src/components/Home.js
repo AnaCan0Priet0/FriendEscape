@@ -69,11 +69,11 @@ export default function ({user, onHandleLocations, onCreateAGroup, onHandleDiffi
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
-    <div className="header__logout">
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
-    </div>
+    
+    
 
     {/* Search */}
     <div className="search">

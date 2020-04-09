@@ -348,7 +348,7 @@ async function handleNewGroup(id){
       <Route path='/themes/fear' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFear={handleFear}/>: <Redirect to ="landing" />} />
       <Route path='/themes/criminal' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleCriminal={handleCriminal}/>: <Redirect to ="landing" />} />
       <Route path='/themes/historical' render={() => isLoggedIn() ? <SelectedThemes  themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleHistorical={handleHistorical} />: <Redirect to ="landing" />} />
-      <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup   user={user} availableGroups={group} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} />: <Redirect to ="landing" />} />
+      <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup   user={user} availableEscapes={escapes} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} />: <Redirect to ="landing" />} />
     </Page>
 
   </div>
