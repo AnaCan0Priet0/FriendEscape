@@ -37,6 +37,15 @@ export default withRouter(function ({ history }) {
     }
   }, [])
 
+  function __handleError__(error) {
+      
+    setState({...state, error: error.message })
+
+    setTimeout(() => {
+      setState({ error: undefined })
+    }, 3000)
+}
+
 
   useEffect(() => {
       setState({ page: 'landing' })
@@ -67,8 +76,8 @@ export default withRouter(function ({ history }) {
       setEscapeList(availableEscapes)
 
       history.push('/home')
-    } catch ({ message }) {
-      setState({ ...state, error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -82,8 +91,8 @@ export default withRouter(function ({ history }) {
       await registerUser(name, surname, email, telf, password)
 
       history.push('/login')
-    } catch ({ message }) {
-      setState({ error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -95,8 +104,8 @@ export default withRouter(function ({ history }) {
     try {
       setEscapeList(await search(query))
       setState({ page: 'home' })
-    } catch ({ message }) {
-      setState({ error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -106,8 +115,8 @@ export default withRouter(function ({ history }) {
     setGroupList(availableGroups)
 
     history.push('/groups')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 
@@ -118,8 +127,8 @@ async function handleLocations() {
       setUser(user)
 
       history.push('/locations')
-      } catch ({ message }) {
-        setState({ ...state, error: message })
+      } catch (error) {
+        return __handleError__(error)
       }
     }
 
@@ -129,8 +138,8 @@ async function handleLocations() {
         setUser(user)
   
         history.push('/difficulty')
-        } catch ({ message }) {
-          setState({ ...state, error: message })
+        } catch (error) {
+          return __handleError__(error)
         }
       }
 
@@ -149,8 +158,8 @@ async function handleLocations() {
           const user = await retrieveUser()
           setUser(user)
           history.push(`/escaperoom/${id}`)
-        } catch ({ message }) {
-          setState({ ...state, error: message })
+        } catch (error) {
+          return __handleError__(error)
         }
       }
     //   }
@@ -170,8 +179,8 @@ async function handleLocations() {
       setEscapeList(availableEscapes)
 
       history.push('/home')
-    } catch ({ message }) {
-      setState({ ...state, error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -184,8 +193,8 @@ async function handleLocations() {
 
       setDifficulty(difficultyEscapes)
       history.push('/difficulty/easy')
-    } catch ({ message }) {
-      setState({ error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -198,8 +207,8 @@ async function handleLocations() {
 
       setDifficulty(difficultyEscapes)
       history.push('/difficulty/medium')
-    } catch ({ message }) {
-      setState({ error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -212,8 +221,8 @@ async function handleLocations() {
 
       setDifficulty(difficultyEscapes)
       history.push('/difficulty/hard')
-    } catch ({ message }) {
-      setState({ error: message })
+    } catch (error) {
+      return __handleError__(error)
     }
   }
 
@@ -224,8 +233,8 @@ async function handleLocations() {
       setUser(user)
 
       history.push('/themes')
-      } catch ({ message }) {
-        setState({ ...state, error: message })
+      } catch (error) {
+        return __handleError__(error)
       }
     }
 
@@ -236,8 +245,8 @@ async function handleFiction(){
     const themeEscapes = await retrieveTheme("fiction")
     setTheme(themeEscapes)
     history.push('/themes/fiction')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 
@@ -248,8 +257,8 @@ async function handleHistorical(){
     const themeEscapes = await retrieveTheme("historical")
     setTheme(themeEscapes)
     history.push('/themes/historical')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 
@@ -260,8 +269,8 @@ async function handleCriminal(){
     const themeEscapes = await retrieveTheme("criminal")
     setTheme(themeEscapes)
     history.push('/themes/criminal')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 async function handleFear(){
@@ -273,8 +282,8 @@ async function handleFear(){
     const themeEscapes = await retrieveTheme("fear")
     setTheme(themeEscapes)
     history.push('/themes/fear')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 
@@ -286,8 +295,8 @@ async function handleJoinGroups(id){
     setState({ ...state, error: message })
     history.push('/groups')
     
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
 
@@ -300,8 +309,8 @@ async function handleCreateAGroup(){
     setEscapeList(availableEscapes)
 
   history.push('/create-group')
-      } catch ({ message }) {
-    setState({ ...state, error: message })
+      } catch (error) {
+        return __handleError__(error)
       }
     }
     
@@ -312,11 +321,10 @@ async function handleNewGroup(id){
     const message = " You created a new group, please check your email"
     setState({ ...state, error: message })
     history.push('/create-group')
-  } catch ({ message }) {
-    setState({ error: message })
+  } catch (error) {
+    return __handleError__(error)
   }
 }
-
 
 
 
