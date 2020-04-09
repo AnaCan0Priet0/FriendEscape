@@ -26,6 +26,8 @@ module.exports = (userId, groupId) => {
             //TODO modify group subevents. palabra del profesor
             const {date, time, escapeRoom :{title, location, theme, difficulty, duration, price, minplayers, maxplayers}} = group
             const {email} = user
+            let members = ''
+            for (let i = 0; i < group.subevents.length; i++) members += `\n\t\t${i+1}: ${group.subevents[i].name}, ${group.subevents[i].surname}, ${group.subevents[i].email}\n`;
             const body = `Hi friend, 
             Here do you have the information about your next appointment:
             Escape Room: ${title},
@@ -33,7 +35,7 @@ module.exports = (userId, groupId) => {
             Date: ${date},
             Time: ${time},
             Location: ${location},
-            Group Members: ${group.subevents},
+            Group Members: ${members},
             Aditional information: 
             Difficulty: ${difficulty}, 
             Duration: ${duration}, 
