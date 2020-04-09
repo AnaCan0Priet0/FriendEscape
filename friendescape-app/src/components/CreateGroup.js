@@ -10,6 +10,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     // const {title, location, punctuation, theme, difficulty, duration, price, minplayers, maxplayers, img} = availableEscapes
     const [time, setTime] = useState('12:34pm')
     const [selectedRoom, setSelectedRoom] = useState()
+    let date
      
     
     function handleLogOut(event){
@@ -48,7 +49,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         <div className="creategroup">
         <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
             <h1>CREATE A NEW GROUP</h1>
-
+            <h3>firCHOOSE YOUR ESCAPE ROOM</h3>   
             <select 
               onChange={event => {/*this.setState({selectedEscape: e.target.value})*/
               event.preventDefault();
@@ -63,28 +64,37 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
             </select>
             
 
-            {selectedRoom && <p>{selectedRoom.description}</p>}
-            
-            {selectedRoom && <InfiniteCalendar
+        {selectedRoom && 
+        <div>
+        <p>Description: {selectedRoom.description}</p> 
+        <p>Location: {selectedRoom.location}</p>
+        <p>Punctuation: {selectedRoom.punctuation}</p>
+        <p>Difficulty: {selectedRoom.difficulty}</p>
+        <p>Price: {selectedRoom.price}</p> 
+        <p> Min-players: {selectedRoom.minplayers}</p>
+        <p> Max-players: {selectedRoom.maxplayers}</p>
+        <img src={selectedRoom.img}/> 
+        <a className="btn--main" href={selectedRoom.web}><i class="fas fa-ticket-alt"></i>Book escape</a>
+        </div>}
+
+        <h3>SELECT A DATE</h3>    
+       <InfiniteCalendar 
     width={400}
     height={300}
     min={today}
     max={nextMonths}
     onSelect={function(date) {
         alert((date))
+        date = (date)
+        console.log(date)
      }}
      
-  />}
+  />
 
-{/* <TimeKeeper 
-switchToMinuteOnHourSelect
-onDoneClick/>
-            {/* <ul>
-                {availableGroups.map(group => <Group item={group} onClick={onItemClick} handleJoinGroup={handleJoinGroup} error={error} id={id}/>)}
-            </ul> */}
+
         </div>
        
-                                        />  */}
+    <h3>CHOOSE THE TIME</h3>                                     
 <TimeKeeper
 time={time}
 onChange={(newTime) => setTime(newTime.formatted12)}
