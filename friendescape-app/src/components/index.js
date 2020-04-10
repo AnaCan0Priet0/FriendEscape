@@ -16,6 +16,8 @@ import Difficulty from './Difficulty'
 import SelectedDifficulty from './SelectedDifficulty'
 import SelectedThemes from './SelectedThemes'
 import CreateGroup from './CreateGroup'
+import Calendar from './Calendar'
+import Clock from './Clock'
 
 
 
@@ -38,5 +40,7 @@ export {
     Difficulty,
     SelectedDifficulty,
     SelectedThemes,
-    CreateGroup
+    CreateGroup,
+    Calendar, 
+    Clock
 }
