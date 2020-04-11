@@ -55,7 +55,8 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
-    <h1> Choose your favourite theme:</h1>
+
+    <div className="theme">
     <Carousel
   autoPlay={2000}
   animationSpeed={1000}
@@ -73,11 +74,11 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
             <div>
             <img src={Fear} onClick={handleFear}/> Fear
             </div>
-            <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
+            
 </Carousel>
+<a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
    
-   
-  
+</div>
     </>
 }
 

@@ -69,9 +69,11 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                 height={300}
                 min={today}
                 max={nextMonths}
+                selectedDate={date}
                 onSelect={function(date) {
-                    alert('You selected: ' + date)
-                    setDate(Date(date))
+                    alert('You selected: ' + date )
+                    setDate( new Date(date))
+                    console.log(date)
                  }}
             />
             <h3>CHOOSE THE TIME</h3>

@@ -9,16 +9,18 @@ const API_URL = process.env.REACT_APP_API_URL
 
 export default (function (id, date, time, state) {
     debugger
-    //validate.type(date, 'date')
+    // validate.type(date, 'date', Date)
     validate.string(time, 'time')
     validate.string(state, 'state')
+    console.log(date)
 
     return (async () => {
         const response = await fetch(`${API_URL}/groups/escaperooms/${id}`, {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' ,
-                Authorization: `Bearer ${this.token}`},
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${this.token}`
+            },
             body: JSON.stringify({ date, time, state })
         })
         const { status } = response

@@ -22,19 +22,20 @@ export default function ({user, onHandleGoHome, onHandleLogOut}) {
   }
 
    return <>
-       <div className="header">
+        <div className="header">
     <figure>
         <img className='header__logo' src ={Logo} alt="Logo"/>
     </figure>
     <div className='header__username'>
-    <p>Welcome {name}</p>
-    <i className="fas fa-sign-out-alt" onClick={handleLogOut} ></i>
+    <span>Welcome {name}</span>
+    <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
 
      
          <div className='container-map'>
-         <button className="btn--main" onClick={handleGoToHome} >Go Back</button>
+         
+         <a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
             <Map />
          </div>
    </>
