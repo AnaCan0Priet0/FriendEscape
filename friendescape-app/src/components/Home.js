@@ -5,7 +5,7 @@ import Item from './Item'
 
 
 
-export default function ({user, onHandleLocations, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
+export default function ({user, onHandleLocations, handleJoinGroups, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
     const {name} = user
     const [menu, setMenu] = useState(false)
 
@@ -69,6 +69,7 @@ export default function ({user, onHandleLocations, onCreateAGroup, onHandleDiffi
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
+    <i class="fas fa-cog"></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
@@ -89,6 +90,8 @@ export default function ({user, onHandleLocations, onCreateAGroup, onHandleDiffi
             <li><a className="textMenu" onClick={handleLocations} >Locations</a></li>
             <li><a className="textMenu" onClick={handleDifficulty}>Difficulty</a></li>
             <li><a className="textMenu" onClick={handleTheme}>Theme</a></li>
+            <li><a className="textMenu" onClick={handleGoToCreateAGroup}>Create a Group</a></li>
+            <li><a className="textMenu" onClick={handleGoToJoinGroups}>Join a Group</a></li>
             </ul>
         </div>
     </nav>

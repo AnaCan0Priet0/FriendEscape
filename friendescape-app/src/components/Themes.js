@@ -46,12 +46,12 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
 
     return <>
     {/* Header */}
-   <div className="header">
+    <div className="header">
     <figure>
         <img className='header__logo' src ={Logo} alt="Logo"/>
     </figure>
     <div className='header__username'>
-    <p>Welcome {name}</p>
+    <span>Welcome {name}</span>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>

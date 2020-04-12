@@ -3,8 +3,7 @@ import Logo from '../images/FriendEscape.png'
 import InfiniteCalendar from 'react-infinite-calendar'
 import 'react-infinite-calendar/styles.css'
 import TimeKeeper from 'react-timekeeper'
-import Calendar from './Calendar'
-import Clock from './Clock'
+import '../sass/components/createagroup.sass'
 
 
 export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateANewGroup, availableEscapes }) {
@@ -14,7 +13,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     //'12:34pm'
     const [selectedRoom, setSelectedRoom] = useState()
     const [date, setDate] = useState()
-    
+
 
     function handleLogOut(event) {
         event.preventDefault()
@@ -25,12 +24,6 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         event.preventDefault()
         onHandleGoHome()
     }
-
-    // function handleGoToCreateAGroup(event) {
-    //     event.preventDefault()
-    //     //console.log(`Group created: ${date}, ${time} in ${selectedRoom._id}`)
-    //     onHandleCreateANewGroup(selectedRoom._id, date, time)
-    // }
 
 
     var today = new Date()
@@ -54,44 +47,47 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                 <img className='header__logo' src={Logo} alt="Logo" />
             </figure>
             <div className='header__username'>
-                <p>Welcome {name}</p>
+                <span>Welcome {name}</span>
                 <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
             </div>
         </div>
 
         <div className="creategroup">
 
-            <h1>CREATE A NEW GROUP</h1>
-            {/* <Calendar handleDate={handleSetDate} /> */}
-            <h3>SELECT A DATE</h3>
+            <h1 className="cards__title">Create a new group</h1>
+
+<div className="calendar">
             <InfiniteCalendar
                 width={400}
                 height={300}
                 min={today}
                 max={nextMonths}
                 selectedDate={date}
-                onSelect={function(date) {
-                    alert('You selected: ' + date )
-                    setDate( new Date(date))
-                    console.log(date)
-                 }}
+                onSelect={function (date) {
+                    setDate(new Date(date))
+                }}
             />
-            <h3>CHOOSE THE TIME</h3>
-        <TimeKeeper
-            //time={time}
-            onChange={(newTime) => setTime(newTime.formatted12) }
-            doneButton={(newTime) => (
-                <div
-                    style={{ textAlign: 'center', padding: '10px 0' }}
-                    onClick={() => alert('new time is now', newTime.formatted12)}
-                >Close
-                </div>
-            )}
-        />
-            {/*<Clock handleTime={handleSetTime} />*/}
+</div>
 
+            {date &&
+                <div className="timekeeper">
+                    <TimeKeeper
+                        onChange={(newTime) => setTime(newTime.formatted12)}
+                        doneButton={(newTime) => (
+                            <div
+                                style={{ textAlign: 'center', padding: '10px 0' }}
+                            // onClick={() => alert('new time is now', newTime.formatted12)}
+                            >
+                            </div>
+
+                        )}
+
+
+                    />
+</div>
+            }
             {date && <>
-                <h3>CHOOSE YOUR ESCAPE ROOM</h3>
+                <h3>And finally..., choose your escape room</h3>
                 <select
                     onChange={event => {/*this.setState({selectedEscape: e.target.value})*/
                         event.preventDefault();
@@ -127,8 +123,9 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         <button onClick={event => {
             event.preventDefault();
             //console.log(`Group created: ${date}, ${time} in ${selectedRoom._id}`)
-            onHandleCreateANewGroup(selectedRoom._id, date, time)}} className="main__btn"> Create a Group </button>
-        }
+            onHandleCreateANewGroup(selectedRoom._id, date, time)
+        }} className="btn--difficulty"><i class="fas fa-user-plus"></i> Create a Group </button>
+ <a href="" onClick = {handleGoToHome} className="btn--difficulty"><i class="fas fa-undo-alt"></i>Go Back</a>
     </>
 
 }

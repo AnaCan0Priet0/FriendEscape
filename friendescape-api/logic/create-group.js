@@ -1,13 +1,12 @@
 const { validate } = require('friendescape-utils')
 const { models: { Group, User}, } = require('friendescape-data')
 const { NotFoundError } = require('friendescape-errors')
+const nodemailer = require('nodemailer')
 
 module.exports = (escaperoomId, userId, date, time, state ) => {
     date = new Date(date)
-
     validate.string(escaperoomId, 'escaperoomId')
     validate.string(userId, 'userId')
-    validate.type(date, 'date', Date)
     validate.string(time, 'time')
     validate.string(state, 'state')
     
