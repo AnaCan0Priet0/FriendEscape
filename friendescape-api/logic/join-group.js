@@ -14,7 +14,6 @@ module.exports = (userId, groupId) => {
         .then(([user, group]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
-            console.log(user)
             if (group.subevents.includes(userId))throw new NotFoundError (`this user is already on the group`)
             console.log(group)
             return Promise.all([User.findByIdAndUpdate(userId, { $addToSet: { subbedTo: groupId } }), Group.findByIdAndUpdate(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email').populate('escapeRoom', 'title location theme difficulty duration price minplayers maxplayers')])

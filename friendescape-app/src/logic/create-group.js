@@ -8,7 +8,6 @@ const API_URL = process.env.REACT_APP_API_URL
 
 
 export default (function (id, date, time, state) {
-    debugger
     // validate.type(date, 'date', Date)
     validate.string(time, 'time')
     validate.string(state, 'state')

@@ -1,5 +1,5 @@
 const { validate } = require('friendescape-utils')
-const { models: { User } } = require('friendescape-data')
+const { models: { User, Group } } = require('friendescape-data')
 const { NotFoundError, NotAllowedError } = require('friendescape-errors')
 
 module.exports = id => {
@@ -13,5 +13,5 @@ module.exports = id => {
 
             return user.save()
         })
-        .then(({ name, surname, email, telf }) => ({ name, surname, email, telf }))
+        .then(({ name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo: Group }) => ({ name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo: Group }))
 }

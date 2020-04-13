@@ -18,6 +18,7 @@ import SelectedThemes from './SelectedThemes'
 import CreateGroup from './CreateGroup'
 import Calendar from './Calendar'
 import Clock from './Clock'
+import Profile from './Profile'
 
 
 
@@ -42,5 +43,6 @@ export {
     SelectedThemes,
     CreateGroup,
     Calendar, 
-    Clock
+    Clock,
+    Profile
 }

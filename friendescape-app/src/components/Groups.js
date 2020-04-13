@@ -1,4 +1,3 @@
-
 import React, {useEffect} from 'react'
 import '../sass/components/home.sass'
 import Logo from '../images/FriendEscape.png'

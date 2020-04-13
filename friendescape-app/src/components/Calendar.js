@@ -17,7 +17,6 @@ export default function ({handleDate}) {
     min={today}
     max={nextMonths}
     onSelect={function(selectedDate) {
-        debugger
         handleDate(selectedDate)
         //console.log(date)
      }}

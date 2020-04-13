@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react'
-import { Register, Login, CreateGroup, Page, Landing, Home, Themes, SelectedDifficulty, SelectedThemes, Locations, ERDetail, Groups, Difficulty } from '../components'
+import { Register, Profile, Login, CreateGroup, Page, Landing, Home, Themes, SelectedDifficulty, SelectedThemes, Locations, ERDetail, Groups, Difficulty } from '../components'
 import { registerUser, retrieveUser, login, logout, isLoggedIn, search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, createGroup, retrieveGroups } from '../logic'
 import { Context } from './ContextProvider'
 import 'moment-timezone'
@@ -89,7 +89,6 @@ export default withRouter(function ({ history }) {
 
     try {
       await registerUser(name, surname, email, telf, password)
-
       history.push('/login')
     } catch (error) {
       return __handleError__(error)
@@ -289,7 +288,6 @@ export default withRouter(function ({ history }) {
 
   async function handleJoinGroups(id) {
     try {
-      debugger
       await joinGroups(id)
       const message = "Joined successfully. Check your email to see the details"
       setState({ ...state, error: message })
@@ -303,7 +301,6 @@ export default withRouter(function ({ history }) {
   async function handleCreateAGroup() {
     try {
       const user = await retrieveUser()
-
       setUser(user)
       const availableEscapes = await escapeList()
       setEscapeList(availableEscapes)
@@ -317,7 +314,6 @@ export default withRouter(function ({ history }) {
 
   async function handleNewGroup(roomId, date, time) {
     try {
-      debugger
       const state = 'active'
       await createGroup(roomId, date, time, state)
       const message = " You created a new group, please check your email"
@@ -329,6 +325,16 @@ export default withRouter(function ({ history }) {
     }
   }
 
+  async function handleProfile(){
+    try {
+      const user = await retrieveUser()
+      setUser(user)
+      console.log(user)
+      history.push('/profile')
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
 
   return <div>
@@ -338,7 +344,7 @@ export default withRouter(function ({ history }) {
       <Route path="/landing" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Landing onGoToRegister={handleGoToRegister} onGoToLogin={handleGoToLogin} onMount={handleMountLanding} />} />
       <Route path="/login" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Login onSubmit={handleLogin} error={error} onGoToRegister={handleGoToRegister} onMount={handleMountLogin} />} />
       <Route path="/register" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Register onSubmit={handleRegister} error={error} onGoToLogin={handleGoToLogin} onMount={handleMountRegister} />} />
-      <Route path='/home' render={() => isLoggedIn() ? <Home user={user} onCreateAGroup={handleCreateAGroup} onHandleLogOut={handleLogOut} availableEscape={escapes} onGoToSearch={handleSearch} onHandleLocations={handleLocations} onHandleDifficulty={handleDifficulty} onGoToDetail={handleDetail} onHandleTheme={handleTheme} onGoToJoinGroups={joinGroup} /> : <Redirect to="/home" />} />
+      <Route path='/home' render={() => isLoggedIn() ? <Home user={user} onCreateAGroup={handleCreateAGroup} onHandleLogOut={handleLogOut} availableEscape={escapes} onGoToSearch={handleSearch} onHandleProfile={handleProfile} onHandleLocations={handleLocations} onHandleDifficulty={handleDifficulty} onGoToDetail={handleDetail} onHandleTheme={handleTheme} onGoToJoinGroups={joinGroup} /> : <Redirect to="/home" />} />
       <Route path='/escaperoom/:id' render={props => isLoggedIn() ? <ERDetail user={user} escaperooom={detail} onHandleLogOut={handleLogOut} escaperoomId={props.match.params.id} onHandleItemClick={handleDetail} /> : <Redirect to="landing" />} />
       <Route path='/locations' render={() => isLoggedIn() ? <Locations user={user} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} /> : <Redirect to="landing" />} />
       <Route path='/themes' render={() => isLoggedIn() ? <Themes user={user} onHandleGoHome={handleGoHome} setTheme={theme} onHandleLogOut={handleLogOut} onHandleFiction={handleFiction} onHandleHistorical={handleHistorical} onHandleCriminal={handleCriminal} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
@@ -352,6 +358,7 @@ export default withRouter(function ({ history }) {
       <Route path='/themes/criminal' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleCriminal={handleCriminal} /> : <Redirect to="landing" />} />
       <Route path='/themes/historical' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleHistorical={handleHistorical} /> : <Redirect to="landing" />} />
       <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup user={user} availableEscapes={escapes} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} /> : <Redirect to="landing" />} />
+      <Route path='/profile' render={() => isLoggedIn() ? <Profile user={user} onGoToJoinGroups={joinGroup} onHandleProfile={handleProfile} onHandleLogOut={handleLogOut} onCreateAGroup={handleCreateAGroup} /> : <Redirect to="landing" />} />>}
     </Page>
 
   </div>

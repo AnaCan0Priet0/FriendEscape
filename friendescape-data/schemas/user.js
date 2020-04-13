@@ -7,8 +7,8 @@ module.exports = new Schema({
     telf: {type: String },
     password: {type: String}, 
     pubevents: [{type: String}],
-    foults: {type: Number},
-    trusty: {type: Number},
+    foults: {type: Number, default:0},
+    trusty: {type: Number, default:0},
     deactivated: {type: String, default:0},   
     subbedTo: [{ type: ObjectId, ref: 'Group' }]
 

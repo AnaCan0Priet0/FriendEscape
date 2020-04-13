@@ -5,7 +5,7 @@ import Item from './Item'
 
 
 
-export default function ({user, onHandleLocations, handleJoinGroups, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
+export default function ({user, onHandleLocations, handleJoinGroups, onHandleProfile, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
     const {name} = user
     const [menu, setMenu] = useState(false)
 
@@ -58,6 +58,11 @@ export default function ({user, onHandleLocations, handleJoinGroups, onCreateAGr
         onHandleTheme()
     }
 
+    function handleProfile(event){
+        event.preventDefault()
+        onHandleProfile()
+    }
+
 
 
 
@@ -69,7 +74,7 @@ export default function ({user, onHandleLocations, handleJoinGroups, onCreateAGr
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
-    <i class="fas fa-cog"></i>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>

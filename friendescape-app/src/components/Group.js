@@ -33,7 +33,7 @@ export default function ({ item, handleJoinGroup, error }) {
        </li>
     
             {/* <h5>State : {state}</h5> */}
-            <a href="" className="btn--main" onClick={e => {
+            <a href="" className="btn--group" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
             }}><i class="fas fa-users"></i>Join Group</a>
