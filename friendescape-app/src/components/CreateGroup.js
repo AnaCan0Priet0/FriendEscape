@@ -32,7 +32,6 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     function handleDate(selectedDate) {
         alert(selectedDate)
         setDate(selectedDate)
-        console.log(date)
     }
 
     function handleSetTime(selectedTime) {
