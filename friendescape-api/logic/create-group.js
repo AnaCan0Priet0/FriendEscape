@@ -19,6 +19,8 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     const user = await User.findById(userId)
 
     user.pubevents.push(newGroup._id.toString())
+    
+    user.trusty++
 
     newGroup.id = newGroup._id.toString()
 
@@ -31,7 +33,7 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     const {title, location, theme, difficulty, duration, price, minplayers, maxplayers} = escapeRoom_
             const {email} = user
             const body = `Hi friend, 
-            Here do you have the information about your next appointment:
+            Here do you have the information about your created group:
             Escape Room: ${title},
             Theme: ${theme},
             Date: ${groupDate},

@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react'
+import React, { useState } from 'react'
 import '../sass/components/home.sass'
 import Logo from '../images/FriendEscape.png'
 import Group from './Group'
 
 
-export default function ({ user, availableGroups, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, error}) {
+export default function ({ user, availableGroups, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, error}) {
+    
     const {name} = user
 
     
@@ -34,7 +35,7 @@ export default function ({ user, availableGroups, onHandleLogOut, onHandleGoHome
         <a className="btn--group" onClick={handleGoToHome} ><i class="fas fa-undo-alt"></i>Go Back</a>
         <h1 className="cards__title">Available Groups</h1>
             <ul>
-                {availableGroups.map(group => <Group item={group} onClick={onItemClick} handleJoinGroup={handleJoinGroup} error={error}/>)}
+                {availableGroups.map(group => <Group item={group} user={user} onClick={onItemClick} handleJoinGroup={handleJoinGroup} handleDeleteGroup={handleDeleteGroup} error={error}/>)}
             </ul>
         </div>
 

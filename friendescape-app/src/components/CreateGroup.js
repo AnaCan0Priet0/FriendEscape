@@ -8,9 +8,7 @@ import '../sass/components/createagroup.sass'
 
 export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateANewGroup, availableEscapes }) {
     const { name } = user
-    // const {title, location, punctuation, theme, difficulty, duration, price, minplayers, maxplayers, img} = availableEscapes
     const [time, setTime] = useState('12:00pm')
-    //'12:34pm'
     const [selectedRoom, setSelectedRoom] = useState()
     const [date, setDate] = useState()
 
@@ -29,15 +27,15 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     var today = new Date()
     var nextMonths = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 90);
 
-    function handleDate(selectedDate) {
-        alert(selectedDate)
-        setDate(selectedDate)
-    }
+    // function handleDate(selectedDate) {
+    //     alert(selectedDate)
+    //     setDate(selectedDate)
+    // }
 
-    function handleSetTime(selectedTime) {
-        setTime(selectedTime)
-        console.log(time)
-    }
+    // function handleSetTime(selectedTime) {
+    //     setTime(selectedTime)
+    //     console.log(time)
+    // }
 
     return <>
         {/* Header */}
@@ -110,7 +108,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                         <p> Min-players: {selectedRoom.minplayers}</p>
                         <p> Max-players: {selectedRoom.maxplayers}</p>
                         <img src={selectedRoom.img} />
-                        <a className="btn--main" href={selectedRoom.web}><i class="fas fa-ticket-alt"></i>Book escape</a>
+                        <a className="btn--main" href={selectedRoom && selectedRoom.web}><i class="fas fa-ticket-alt"></i>Reserva aquí</a>
                     </div>
                 }
             </>}

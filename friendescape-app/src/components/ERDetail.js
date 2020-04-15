@@ -5,7 +5,7 @@ import ReactPlayer from 'react-player'
 import '../sass/components/ERDetail.sass'
 // import Feedback from './Feedback'
 
-export default ({ escaperoomId, user, onGoToLanding, onHandleLogOut }) => {
+export default ({ escaperoomId, user, onHandleProfile, onHandleGoHome, onHandleLogOut }) => {
 
     const [escaperoom, setEscaperoom] = useState()
 
@@ -28,29 +28,34 @@ export default ({ escaperoomId, user, onGoToLanding, onHandleLogOut }) => {
 
     // const { title, location, description, punctuation, theme, difficulty, duration, price, minplayers, maxplayers, img, web, video } = escaperoom
 
-    function handleGoToLanding(event) {
-        event.preventDefault()
-        onGoToLanding()
-    }
-
+    
     function handleLogOut(event) {
         event.preventDefault()
         onHandleLogOut()
 
     }
 
+    function handleGoToHome(event){
+        event.preventDefault()
+        onHandleGoHome()
+     }
 
+    function handleProfile(event){
+        event.preventDefault()
+        onHandleProfile()
+    }
 
     return <>
-        <div className="header">
-            <figure>
-                <img className='header__logo' src={Logo} alt="Logo" />
-            </figure>
-            <div className='header__username'>
-                <p>Welcome {name}</p>
-                <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
-            </div>
-        </div>
+     <div className="header">
+    <figure>
+        <img className='header__logo' src ={Logo} alt="Logo"/>
+    </figure>
+    <div className='header__username'>
+    <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
+    <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
+    </div>
+    </div>
 
 
 
@@ -70,12 +75,12 @@ export default ({ escaperoomId, user, onGoToLanding, onHandleLogOut }) => {
             <img className= "detail__img" width="420" height="315" src={escaperoom && escaperoom.img}/>
 
 
-            <ReactPlayer width="100%"
-            height="auto" className="detail__video" url={escaperoom && escaperoom.video} controls playing />
-                <a href={escaperoom && escaperoom.web}>Reserva aquí</a>
+            <ReactPlayer className="player-wrapper" width="100%"
+            height="21rem" url={escaperoom && escaperoom.video} controls playing />
+            <a className="btn__detail" href={escaperoom && escaperoom.web}><i class="fas fa-ticket-alt"></i>Reserva aquí</a>
 
 
-            <button >Return landing</button>
+                <a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
         </section>
 
     </>

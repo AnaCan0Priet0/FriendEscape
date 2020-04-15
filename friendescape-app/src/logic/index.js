@@ -12,6 +12,7 @@ import retrieveEasy from './retrieve-easy'
 import retrieveTheme from './retrieve-theme'
 import joinGroups from './join-group'
 import createGroup from './create-group'
+import deleteGroup from './delete-group'
 
 export {
     isLoggedIn,
@@ -27,5 +28,6 @@ export {
     retrieveEasy,
     retrieveTheme,
     joinGroups,
-    createGroup
+    createGroup,
+    deleteGroup
 }

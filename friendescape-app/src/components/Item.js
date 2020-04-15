@@ -4,7 +4,6 @@ import '../sass/components/item.sass'
 
 
 export default function ({ item, onGoToDetail}) {
-
     const {title,theme,img, difficulty, punctuation} = item
     // function handleGoToDetail(event) {
     //     event.preventDefault()

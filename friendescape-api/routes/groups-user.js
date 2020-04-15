@@ -3,7 +3,6 @@ const { NotAllowedError, ContentError } = require('friendescape-errors')
 
 
 module.exports = (req, res) => {
-
     const { payload: { sub: id } } = req
     
     try {

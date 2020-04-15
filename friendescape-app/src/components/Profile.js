@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react'
 import '../sass/components/profile.sass'
 import Logo from '../images/FriendEscape.png'
 // import Item from './Item'
+import Moment from 'react-moment'
 
 
 
-export default function ({ user, _id, onHandleLogOut, onGoToJoinGroups, onHandleProfile, onCreateAGroup }) {
-    debugger
+export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoinGroups, onHandleProfile, onCreateAGroup }) {
+
+
     const { name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo: Group } = user
+    console.log(pubevents)
+    console.log(user.subbedTo)
     function handleLogOut(event) {
         event.preventDefault()
         onHandleLogOut()
@@ -30,7 +34,15 @@ export default function ({ user, _id, onHandleLogOut, onGoToJoinGroups, onHandle
         onHandleProfile()
     }
 
+    function handleGoToHome(event){
+        event.preventDefault()
+        onHandleGoHome()
+     }
 
+     function handleGoToHome(event){
+        event.preventDefault()
+        onHandleGoHome()
+     }
     return <>
         {/* Header */}
         <div className="header">
@@ -45,29 +57,36 @@ export default function ({ user, _id, onHandleLogOut, onGoToJoinGroups, onHandle
         </div>
 
 
-
+        <a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
 
         <div className="profile">
             <div className="profile__text">
-            <h5>Name: {name}</h5>
-            <h5>Surname: {surname}</h5>
-            <h5>Email: {email}</h5>
-            <h5>Telf: {telf}</h5>
-            <ul> {pubevents && pubevents.map(subbed => (<>
-                key={subbed} item={subbed}>
-                <li>{subbed.date}</li>
-                <li>{subbed.time}</li>
-                <li>{subbed.state}</li>
-                <li>{subbed.created}</li>
-                <button>Delete group</button>
-                </>))}</ul> 
-            <h5>Foults: {foults}</h5>
-            <h5>Trusty: {trusty}</h5>
-            <h5>Account: {deactivated}</h5>
-            {/* <h5>Joined Groups: {subevents && subevents.map(subbed => (<>
+                <h5>Name: {name}</h5>
+                <h5>Surname: {surname}</h5>
+                <h5>Email: {email}</h5>
+                <h5>Telf: {telf}</h5>
+                <h5>Groups that you created: </h5>
+                <ul> {pubevents && pubevents.map(pub => (<>
+                    <li>{pub}</li>
+                </>))}</ul>
+                <button>See Details</button>
+
+                <h5>Groups that you have joined: </h5>
+                <ul> {user.subbedTo && user.subbedTo.map(subbed =>(<>
+                    <li>{subbed._id}</li>
+                    <li><Moment format="YYYY/MM/DD">{subbed.date}</Moment></li>
+                    <li>{subbed.time}</li>
+                    <li>{subbed.created}</li>
+                    <br></br>
+                </>))}</ul>
+                <button>See Details</button>
+                <h5>Foults: {foults}</h5>
+                <h5>Trusty: {trusty}</h5>
+                <h5>Account: {deactivated}</h5>
+                {/* <h5>Joined Groups: {subevents && subevents.map(subbed => (<>
                 <p>{subbed.name}</p>
             </>))}</h5> */}
-        </div>
+            </div>
         </div>
 
         <section className='main__groups'>

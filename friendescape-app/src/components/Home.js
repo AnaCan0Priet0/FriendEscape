@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import '../sass/components/home.sass'
 import Logo from '../images/FriendEscape.png'
 import Item from './Item'
 
 
 
-export default function ({user, onHandleLocations, handleJoinGroups, onHandleProfile, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
+export default function ({user, onHandleLocations, onHandleProfile, onCreateAGroup, onHandleDifficulty, onHandleTheme, onHandleLogOut, availableEscape, onGoToSearch, onGoToJoinGroups, onGoToDetail}) {
     const {name} = user
     const [menu, setMenu] = useState(false)
 
     function handleOpenNav (event) {
         event.preventDefault()
        menu ? setMenu(false): setMenu(true)
-    }
-
-    function handleGoToSearch(event) {
-        event.preventDefault()
-        const query = event.target.escroom.value
-        onGoToSearch(query)
     }
 
     function handleGoToChangeSearch(event) {
@@ -86,7 +80,7 @@ export default function ({user, onHandleLocations, handleJoinGroups, onHandlePro
     <section>
     <nav className='search__main'>
 
-        <form className="search__form" onSubmit={handleGoToSearch}>
+        <form className="search__form">
         <a className="burger fas fa-bars" onClick={handleOpenNav}></a>
             <input className="search__query" type="text" name="escroom" placeholder="Search your escape room" onChange={handleGoToChangeSearch}/>
         </form>

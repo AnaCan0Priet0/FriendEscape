@@ -1,23 +1,28 @@
-import React, { useState } from 'react'
 import Moment from 'react-moment'
+import React, { useState } from 'react'
 import '../sass/components/group.sass'
 import Feedback from './Feedback'
 
 
 
-export default function ({ item, handleJoinGroup, error }) {
+export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user }) {
     const [warning, setWarning] = useState(false)
-
-    const { date, time, subevents, escapeRoom} = item
+    const [warningDelete, setWarningDelete] = useState(false)
+    const { id, date, time, subevents, escapeRoom} = item
+    console.log(user.subbedTo)
+    console.log("id")
+    console.log(id)
 
 
      return <>
 
-        <li className={escapeRoom.minplayers >= subevents.lenght ? "itemyes" : "itemno"}>>
+        <li className={subevents.length >= escapeRoom.minplayers ? "itemno" : "itemyes"}>
+        
         <Moment format="YYYY/MM/DD">{date}</Moment>
             <li>
             <h5>Title: {escapeRoom.title}</h5>
             <h5>Location: {escapeRoom.location}</h5>
+            <h4>{id}</h4>
             <h5>Time: {time}</h5>
             <h5>Punctuation: {escapeRoom.punctuation}</h5>
             <h5>Theme: {escapeRoom.theme}</h5>
@@ -27,18 +32,24 @@ export default function ({ item, handleJoinGroup, error }) {
             <img className='results__img' src ={escapeRoom.img} alt="img escroom"/>
             <h5>Subevents: {subevents && subevents.map(subbed => (<>
                 <p>{subbed.name}</p>
+                
             </>))}</h5>
             <h5>Min-Players: {escapeRoom.minplayers}</h5>
             <h5>Max-Players: {escapeRoom.maxplayers}</h5>
        </li>
-    
-            {/* <h5>State : {state}</h5> */}
+            
+            {/* {!user.subbedTo[0]._id === id && ( */}
             <a href="" className="btn--group" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
-            }}><i class="fas fa-users"></i>Join Group</a>
+            }}><i class="fas fa-users"></i>Join team</a>
+            {/* )} */}
+            <a href="" className="btn--group" onClick={e => {
+                e.preventDefault()
+                setWarningDelete(!warning)
+            }}><i class="fas fa-trash-alt"></i>Delete team</a>
             {warning && (<>
-            <p>Read carefully these instructions. If you press Join Group you will be a new member of the group. If you are a show off you will receive a fault. If you commit 3 faults you will be banned.</p>
+            <p>Read carefully these instructions. If you press Join Group you will be a new member of the group and you will adquire one trusty point. In the other hand if you are a show off in the escape room you will receive a fault. If you commit 3 faults you will be banned.</p>
             <button onClick={ event => {
                 const id = item.id
                 event.preventDefault();
@@ -50,6 +61,21 @@ export default function ({ item, handleJoinGroup, error }) {
                 setWarning(false)
             }}>Cancel</button>
             </>)}
+
+            {warningDelete && (<>
+            <p>Read carefully these instructions. If you press Delete Group you will receive a fault. If you commit 3 faults you will be banned. </p>
+            <button onClick={ event => {
+                const id = item.id
+                event.preventDefault();
+                setWarningDelete(false)
+                handleDeleteGroup(id)
+                }}>Understood</button>
+            <button onClick={event=> {
+                event.preventDefault();
+                setWarningDelete(false)
+            }}>Cancel</button>
+            </>)}
+            
             
             {error && <Feedback message={error} level="warning"/>}
             {/* <button onClick={() => {
