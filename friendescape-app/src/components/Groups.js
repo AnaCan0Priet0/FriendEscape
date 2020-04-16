@@ -37,7 +37,7 @@ export default function ({ user, availableGroups, onHandleProfile, onHandleLogOu
     </div>
 
         <div className="availableGroups">
-        <a className="btn--group" onClick={handleGoToHome} ><i class="fas fa-undo-alt"></i>Go Back</a>
+        <a className="group__btn" onClick={handleGoToHome} ><i class="fas fa-undo-alt"></i>Go Back</a>
         <h1 className="cards__title">Available Groups</h1>
             <ul>
                 {availableGroups.map(group => <Group item={group} user={user} onClick={onItemClick} handleJoinGroup={handleJoinGroup} handleDeleteGroup={handleDeleteGroup} error={error}/>)}

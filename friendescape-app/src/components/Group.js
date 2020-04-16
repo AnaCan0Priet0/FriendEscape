@@ -25,20 +25,18 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
 
     let style = ""
     if(state === 'inactive') {
-        style = "item-disabled"
+        style = "item__disabled"
     } else {
         subevents.length >= escapeRoom.minplayers ? style= "itemno" : style = "itemyes"
     }
 
      return <>
-        
-        <li className={style}>
-        
+    <div className={style}>
+        <li>
         <Moment format="YYYY/MM/DD">{date}</Moment>
             <li>
             <h5>Title: {escapeRoom.title}</h5>
             <h5>Location: {escapeRoom.location}</h5>
-            <h4>{id}</h4>
             <h5>Time: {time}</h5>
             <h5>Punctuation: {escapeRoom.punctuation}</h5>
             <h5>Theme: {escapeRoom.theme}</h5>
@@ -56,16 +54,16 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
        </li>
             
             {/* {!user.subbedTo[0]._id === id && ( */}
-            {!isOwner(user, id) && !isJoined(item) && <a href="" className="btn--group" onClick={e => {
+            {!isOwner(user, id) && !isJoined(item) && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
             }}><i class="fas fa-users"></i>Join team</a>}
             {/* )} */}
-            {isOwner(user, id) && <a href="" className="btn--group" onClick={e => {
+            {isOwner(user, id) && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
                 setWarningDelete(!warning)
             }}><i class="fas fa-trash-alt"></i>Delete team</a>}
-            {!isOwner(user, id) && isJoined(item) && <a href="" className="btn--group" onClick={e => {
+            {!isOwner(user, id) && isJoined(item) && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
                 //setWarningDelete(!warning)
             }}><i class="fas fa-trash-alt"></i>Leave team</a>}
@@ -108,6 +106,7 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
 
 
         </li>
+        </div>
     </>
 }
 
