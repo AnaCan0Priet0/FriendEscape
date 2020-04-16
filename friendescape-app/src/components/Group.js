@@ -23,9 +23,16 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
     //     console.log('LEAVE')
     // } else console.log('JOIN')
 
-     return <>
+    let style = ""
+    if(state === 'inactive') {
+        style = "item-disabled"
+    } else {
+        subevents.length >= escapeRoom.minplayers ? style= "itemno" : style = "itemyes"
+    }
 
-        <li className={subevents.length >= escapeRoom.minplayers ? "itemno" : "itemyes"}>
+     return <>
+        
+        <li className={style}>
         
         <Moment format="YYYY/MM/DD">{date}</Moment>
             <li>
