@@ -11,7 +11,7 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     validate.string(state, 'state')
     
     return ( async () =>{ 
-
+ debugger
     const newGroup = new Group({date, time, state, escapeRoom: escaperoomId} )
     
     newGroup.subevents.push(userId)
@@ -20,9 +20,10 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
 
     user.pubevents.push(newGroup._id.toString())
     
+    newGroup.id = newGroup._id.toString()
+
     user.trusty++
 
-    newGroup.id = newGroup._id.toString()
 
     await user.save()
     await newGroup.save()

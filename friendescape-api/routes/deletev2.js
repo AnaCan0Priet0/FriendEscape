@@ -1,11 +1,14 @@
-const { joinGroup } = require ('../logic')
+const { deleteGroup } = require ('../logic')
 const { NotAllowedError, ContentError, NotFoundError } = require('friendescape-errors')
 
 module.exports = (req, res) => {
+
     const { payload: { sub: userId }, params: { groupId } } = req
+
 
     try {
         deleteGroup(userId, groupId)
+
             .then(() => res.status(200).end())
             .catch(error => {
                 let status = 400

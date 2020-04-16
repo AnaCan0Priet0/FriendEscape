@@ -4,11 +4,15 @@ import Logo from '../images/FriendEscape.png'
 import Group from './Group'
 
 
-export default function ({ user, availableGroups, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, error}) {
+export default function ({ user, availableGroups, onHandleProfile, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, error}) {
     
     const {name} = user
 
-    
+    function handleProfile(event){
+        event.preventDefault()
+        onHandleProfile()
+    }
+
     function handleLogOut(event){
         event.preventDefault()
         onHandleLogOut()
@@ -27,6 +31,7 @@ export default function ({ user, availableGroups, onHandleLogOut, onHandleGoHome
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>

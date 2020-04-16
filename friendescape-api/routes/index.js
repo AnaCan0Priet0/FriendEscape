@@ -11,10 +11,11 @@ module.exports = {
     minGamersEscapeRooms: require('./mingamers-escaperooms'),
     maxGamersEscapeRooms: require('./maxgamers-escaperooms'),
     searchEscapeRooms: require('./search-escaperooms'),
-    deleteGroup: require('./delete-group'),
+    deleteGroup: require('./deletev2'),
     deactivateUser: require('./deactivate-user'),
     retrieveEscapeRoom: require('./retrieve-escaperoom'),
     groupsUser: require('./groups-user'),
     joinGroup: require('./join-group'),
-    retrieveNextGroups: require('./retrieve-next-groups')
+    retrieveNextGroups: require('./retrieve-next-groups'),
+    leaveGroup: require("./leave-group")
 }

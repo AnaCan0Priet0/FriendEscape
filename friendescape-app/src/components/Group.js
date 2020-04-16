@@ -3,16 +3,25 @@ import React, { useState } from 'react'
 import '../sass/components/group.sass'
 import Feedback from './Feedback'
 
+import {isOwner, isJoined} from '../logic'
+
 
 
 export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user }) {
     const [warning, setWarning] = useState(false)
     const [warningDelete, setWarningDelete] = useState(false)
-    const { id, date, time, subevents, escapeRoom} = item
-    console.log(user.subbedTo)
-    console.log("id")
-    console.log(id)
+    const [owner, setOwner] = useState()
+    const [joined, setJoined] = useState()
+    const { id, date, time,  subevents, state, escapeRoom} = item
+    console.log(user)
+    console.log(item)
 
+    // if(isOwner(user, id)) {
+        
+    //     setOwner()
+    // } else if (isJoined(group)) {
+    //     console.log('LEAVE')
+    // } else console.log('JOIN')
 
      return <>
 
@@ -29,6 +38,7 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
             <h5>Difficulty: {escapeRoom.difficulty}</h5>
             <h5>Duration: {escapeRoom.duration}</h5>
             <h5>Price: {escapeRoom.price}</h5>
+            <h5>State: {state}</h5>
             <img className='results__img' src ={escapeRoom.img} alt="img escroom"/>
             <h5>Subevents: {subevents && subevents.map(subbed => (<>
                 <p>{subbed.name}</p>
@@ -39,15 +49,21 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
        </li>
             
             {/* {!user.subbedTo[0]._id === id && ( */}
-            <a href="" className="btn--group" onClick={e => {
+            {!isOwner(user, id) && !isJoined(item) && <a href="" className="btn--group" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
-            }}><i class="fas fa-users"></i>Join team</a>
+            }}><i class="fas fa-users"></i>Join team</a>}
             {/* )} */}
-            <a href="" className="btn--group" onClick={e => {
+            {isOwner(user, id) && <a href="" className="btn--group" onClick={e => {
                 e.preventDefault()
                 setWarningDelete(!warning)
-            }}><i class="fas fa-trash-alt"></i>Delete team</a>
+            }}><i class="fas fa-trash-alt"></i>Delete team</a>}
+            {!isOwner(user, id) && isJoined(item) && <a href="" className="btn--group" onClick={e => {
+                e.preventDefault()
+                //setWarningDelete(!warning)
+            }}><i class="fas fa-trash-alt"></i>Leave team</a>}
+
+            
             {warning && (<>
             <p>Read carefully these instructions. If you press Join Group you will be a new member of the group and you will adquire one trusty point. In the other hand if you are a show off in the escape room you will receive a fault. If you commit 3 faults you will be banned.</p>
             <button onClick={ event => {

@@ -21,7 +21,8 @@ const {
     retrieveEscapeRoom,
     groupsUser,
     joinGroup,
-    retrieveNextGroups
+    retrieveNextGroups,
+    leaveGroup
 } = require('./routes')
 
 const { name, version } = require('./package')
@@ -84,7 +85,7 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
 
         app.post('/groups/escaperooms/:id', [jwtVerifierMidWare, jsonBodyParser],  createGroup)
 
-        app.delete('/groups/delete/:id', deleteGroup)
+        app.patch('/groups/delete/:groupId', jwtVerifierMidWare, deleteGroup)
 
         app.get('/escaperoom/:id', retrieveEscapeRoom)
 
@@ -92,8 +93,9 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
 
         app.get('/groups-user', jwtVerifierMidWare, groupsUser)
 
+        app.patch('/users/leave-group/:groupId', jwtVerifierMidWare, leaveGroup)
+
         app.patch('/users/join-group/:groupId', jwtVerifierMidWare, joinGroup)
-        //localhost:8085/users/join-group/5e7db904d3c86311f9a13e5f
 
         app.get('/groups/last', retrieveNextGroups)
 

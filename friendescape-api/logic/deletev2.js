@@ -6,23 +6,24 @@ const nodemailer = require('nodemailer')
 
 
 module.exports = (userId, groupId) => {
-
+debugger
     validate.string(userId, 'userId')
+
     validate.string(groupId, 'groupId') 
 
     return Promise.all([User.findById(userId), Group.findById(groupId)])
         .then(([user, group]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
+            user.foults++
             // if (group.subevents.includes(userId))throw new NotFoundError (`this user is already on the group`)
-            console.log(group)
-            return Promise.all([User.findByIdAndDelete(userId, { $addToSet: { subbedTo: groupId } }), Group.findByIdAndDelete(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email')
+            return Promise.all([User.findByIdAndUpdate(userId, { $pullAll: { subbedTo: [groupId] } }), Group.findByIdAndUpdate(groupId, { $set: { state: "inactive" } }).populate('subevents', 'name surname email')
             
             ])
         
         //.then(() => { })
         // .then(([user, group]) => {
-        //     //TODO modify group subevents. palabra del profesor
+
         //     const {date, time, escapeRoom :{title, location, theme, difficulty, duration, price, minplayers, maxplayers}} = group
         //     const {email} = user
         //     let members = ''

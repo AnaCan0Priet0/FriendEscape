@@ -20,6 +20,8 @@ module.exports = () => {
             element.date = group.date
             element.time = group.time
             element.subevents = group.subevents
+            element.created = group.created
+            element.state = group.state
             element.escapeRoom = group.escapeRoom
             
             retrievedGroups.push(element)

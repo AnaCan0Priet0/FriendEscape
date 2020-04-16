@@ -13,6 +13,8 @@ import retrieveTheme from './retrieve-theme'
 import joinGroups from './join-group'
 import createGroup from './create-group'
 import deleteGroup from './delete-group'
+import isJoined from './is-joined'
+import isOwner from './is-owner'
 
 export {
     isLoggedIn,
@@ -29,5 +31,7 @@ export {
     retrieveTheme,
     joinGroups,
     createGroup,
-    deleteGroup
+    deleteGroup,
+    isJoined,
+    isOwner
 }
