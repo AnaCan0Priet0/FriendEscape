@@ -1,15 +1,10 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Register, Profile, Login, CreateGroup, Page, Landing, Home, Themes, SelectedDifficulty, SelectedThemes, Locations, ERDetail, Groups, Difficulty } from '../components'
-import { registerUser, retrieveUser, login, logout, isLoggedIn, search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, deleteGroup, createGroup, retrieveGroups } from '../logic'
+import { registerUser, retrieveUser, login, logout, isLoggedIn, search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, deleteGroup, leaveGroup, createGroup, retrieveGroups } from '../logic'
 import { Context } from './ContextProvider'
 import 'moment-timezone'
 import { Route, withRouter, Redirect } from 'react-router-dom'
 import '../sass/index.sass'
-
-
-
-
-
 
 export default withRouter(function ({ history }) {
   const [state, setState] = useContext(Context)
@@ -334,7 +329,6 @@ export default withRouter(function ({ history }) {
     try {
       const user = await retrieveUser()
       setUser(user)
-      console.log(user)
       history.push('/profile')
     } catch (error) {
       console.error(error)
@@ -343,7 +337,6 @@ export default withRouter(function ({ history }) {
 
   async function handleDeleteGroups(id){
     try {
-
       await deleteGroup(id)
       history.push('/home')
     } catch (error) {
@@ -351,6 +344,17 @@ export default withRouter(function ({ history }) {
       console.error(error)
     }
   }
+
+  async function handleLeaveGroups(id){
+    try {
+
+      await leaveGroup(id)
+      history.push('/home')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
 
   
 
@@ -366,7 +370,7 @@ export default withRouter(function ({ history }) {
       <Route path='/escaperoom/:id' render={props => isLoggedIn() ? <ERDetail onHandleProfile={handleProfile} user={user} onHandleGoHome={handleGoHome} escaperooom={detail} onHandleLogOut={handleLogOut} onHandleProfile={handleProfile} escaperoomId={props.match.params.id} onHandleItemClick={handleDetail} /> : <Redirect to="landing" />} />
       <Route path='/locations' render={() => isLoggedIn() ? <Locations user={user} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} /> : <Redirect to="landing" />} />
       <Route path='/themes' render={() => isLoggedIn() ? <Themes user={user} onHandleGoHome={handleGoHome} setTheme={theme} onHandleLogOut={handleLogOut} onHandleFiction={handleFiction} onHandleHistorical={handleHistorical} onHandleCriminal={handleCriminal} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
-      <Route path='/groups' render={() => isLoggedIn() ? <Groups user={user} availableGroups={group} onHandleLogOut={handleLogOut} onHandleGoHome={handleGoHome} handleJoinGroup={handleJoinGroups} handleDeleteGroup={handleDeleteGroups} error={error} /> : <Redirect to="landing" />} />
+      <Route path='/groups' render={() => isLoggedIn() ? <Groups user={user} availableGroups={group} onHandleLogOut={handleLogOut} onHandleGoHome={handleGoHome} handleJoinGroup={handleJoinGroups} handleLeaveGroup={handleLeaveGroups} handleDeleteGroup={handleDeleteGroups} error={error} /> : <Redirect to="landing" />} />
       <Route path='/difficulty' render={() => isLoggedIn() ? <Difficulty user={user} onHandleGoHome={handleGoHome} onHandleEasy={handleEasy} onHandleMedium={handleMedium} onHandleHard={handleHard} /> : <Redirect to="landing" />} />
       <Route path='/difficulty/easy' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
       <Route path='/difficulty/medium' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />

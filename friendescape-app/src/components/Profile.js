@@ -10,8 +10,6 @@ export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoin
 
 
     const { name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo: Group } = user
-    console.log(pubevents)
-    console.log(user.subbedTo)
     function handleLogOut(event) {
         event.preventDefault()
         onHandleLogOut()

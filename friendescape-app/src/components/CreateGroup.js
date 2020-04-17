@@ -34,7 +34,6 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
 
     // function handleSetTime(selectedTime) {
     //     setTime(selectedTime)
-    //     console.log(time)
     // }
 
     return <>
@@ -88,7 +87,6 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                 <select
                     onChange={event => {/*this.setState({selectedEscape: e.target.value})*/
                         event.preventDefault();
-                        console.log(event.target.value)
                         const selected = availableEscapes.find(room => room._id === event.target.value)
                         setSelectedRoom(selected)
 
@@ -119,7 +117,6 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         <span>Time is {time}</span>
         <button onClick={event => {
             event.preventDefault();
-            //console.log(`Group created: ${date}, ${time} in ${selectedRoom._id}`)
             onHandleCreateANewGroup(selectedRoom._id, date, time)
         }} className="btn--difficulty"><i class="fas fa-user-plus"></i> Create a Group </button>
  <a href="" onClick = {handleGoToHome} className="btn--difficulty"><i class="fas fa-undo-alt"></i>Go Back</a>

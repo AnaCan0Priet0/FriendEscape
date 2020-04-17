@@ -18,7 +18,6 @@ export default function ({handleDate}) {
     max={nextMonths}
     onSelect={function(selectedDate) {
         handleDate(selectedDate)
-        //console.log(date)
      }}
      
   />

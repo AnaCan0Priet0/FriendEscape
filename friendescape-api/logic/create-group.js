@@ -11,7 +11,7 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     validate.string(state, 'state')
     
     return ( async () =>{ 
- debugger
+
     const newGroup = new Group({date, time, state, escapeRoom: escaperoomId} )
     
     newGroup.subevents.push(userId)
@@ -46,9 +46,15 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
             Price: ${price},
             Min-players:${minplayers},
             Max-players:${maxplayers},
+            If your group appears in green this means that the group is completed.
+            You will earn one trusty point per each group that you create or join.
+            You can check your trusty points in your profile.
+            More points, more chances to win one of our prizes. 
             If you have any issue please, don't hesitate to contact us:
             Email: friendescape@friendescape.com
-            Office: 9 Land Street Toowong, Brisbane (8-18h)`
+            Office: 9 Land Street Toowong, Brisbane (8-18h)
+            
+            THE TEAM OF FRIENDESCAPE`
 
     transporter = nodemailer.createTransport({
         service: 'gmail',

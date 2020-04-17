@@ -11,7 +11,6 @@ export default (function (id, date, time, state) {
     // validate.type(date, 'date', Date)
     validate.string(time, 'time')
     validate.string(state, 'state')
-    console.log(date)
 
     return (async () => {
         const response = await fetch(`${API_URL}/groups/escaperooms/${id}`, {

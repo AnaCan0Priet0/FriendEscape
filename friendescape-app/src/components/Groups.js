@@ -4,7 +4,7 @@ import Logo from '../images/FriendEscape.png'
 import Group from './Group'
 
 
-export default function ({ user, availableGroups, onHandleProfile, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, error}) {
+export default function ({ user, availableGroups, onHandleProfile, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, handleLeaveGroup,  error}) {
     
     const {name} = user
 
@@ -40,7 +40,7 @@ export default function ({ user, availableGroups, onHandleProfile, onHandleLogOu
         <a className="group__btn" onClick={handleGoToHome} ><i class="fas fa-undo-alt"></i>Go Back</a>
         <h1 className="cards__title">Available Groups</h1>
             <ul>
-                {availableGroups.map(group => <Group item={group} user={user} onClick={onItemClick} handleJoinGroup={handleJoinGroup} handleDeleteGroup={handleDeleteGroup} error={error}/>)}
+                {availableGroups.map(group => <Group item={group} user={user} onClick={onItemClick} handleJoinGroup={handleJoinGroup} handleDeleteGroup={handleDeleteGroup} handleLeaveGroup={handleLeaveGroup} error={error}/>)}
             </ul>
         </div>
 

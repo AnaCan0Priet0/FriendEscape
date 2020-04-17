@@ -13,67 +13,66 @@ debugger
 
     return Promise.all([User.findById(userId), Group.findById(groupId)])
         .then(([user, group]) => {
+            debugger
+            console.log(user)
+            console.log(group)
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
-            user.foults++
             // if (group.subevents.includes(userId))throw new NotFoundError (`this user is already on the group`)
-            return Promise.all([User.findByIdAndUpdate(userId, { $pullAll: { subbedTo: [groupId] } }), Group.findByIdAndUpdate(groupId, { $set: { state: "inactive" } }).populate('subevents', 'name surname email')
-            
+            return Promise.all([User.findByIdAndUpdate(userId, { $pullAll: { subbedTo: [groupId] } }, { $inc: { foults: 1 } } ),
             ])
         
-        //.then(() => { })
-        // .then(([user, group]) => {
+    
+        .then(([user, group]) => {
+            const {name, surname, email}= user
+            const {date, time, escapeRoom:{title}} = group
+            let members = ''
+            for (let i = 0; i < group.subevents.length; i++) members += `\n\t\t${i+1}: ${group.subevents[i].name}, ${group.subevents[i].surname}, ${group.subevents[i].email}\n`;
+            const body = `Hi ${name} ${surname}, 
+            Here do you have the information about the team that you just deleted, please inform the rest of the team.
+            Escape Room: ${title},
+            Date: ${date},
+            Time: ${time},
+            Group Members: ${members},
 
-        //     const {date, time, escapeRoom :{title, location, theme, difficulty, duration, price, minplayers, maxplayers}} = group
-        //     const {email} = user
-        //     let members = ''
-        //     for (let i = 0; i < group.subevents.length; i++) members += `\n\t\t${i+1}: ${group.subevents[i].name}, ${group.subevents[i].surname}, ${group.subevents[i].email}\n`;
-        //     const body = `Hi friend, 
-        //     Here do you have the information about your next appointment:
-        //     Escape Room: ${title},
-        //     Theme: ${theme},
-        //     Date: ${date},
-        //     Time: ${time},
-        //     Location: ${location},
-        //     Group Members: ${members},
-        //     Aditional information: 
-        //     Difficulty: ${difficulty}, 
-        //     Duration: ${duration}, 
-        //     Price: ${price},
-        //     Min-players:${minplayers},
-        //     Max-players:${maxplayers},
-        //     If you have any issue please, don't hesitate to contact us:
-        //     Email: friendescape@friendescape.com
-        //     Office: 9 Land Street Toowong, Brisbane (8-18h)`
+            Aditional information: 
             
-        //     transporter = nodemailer.createTransport({
-        //         service: 'gmail',
-        //         auth: {
-        //             user: 'programadoraenapuros@gmail.com',
-        //             pass: 'SkyLabProyecto'
-        //         }
-        //     })
-            
-        //         mailOptions = {
-        //             from: 'FriendEscape',
-        //             to: `${email}`,
-        //             subject: 'Congrats, you joined a group',
-        //             text: body
-        //             // attachments: [
-        //             //     { filename: 'fear.jpg',
-        //             //     path: './fear.jpg'}
-        //             // ]
+            You will earn one trusty point per each group that you create or join.
+            You can check your trusty points in your profile.
+            More points, more chances to win one of our prizes. On the other hand if you delete groups, you will receive a foult. If you commit 3 foults you will be banned from our group. 
 
-        //       }
-        //         transporter.sendMail(mailOptions, function (error, info) {
-        //             if (error) {
-        //                 console.log(error);
-        //             } else {
-        //                 console.log('Email sent: ' + info.response);
-        //             }
+            If you have any issue please, don't hesitate to contact us:
+            Email: friendescape@friendescape.com
+            Office: 9 Land Street Toowong, Brisbane (8-18h)
+            
+            THE TEAM OF FRIENDESCAPE`
+
+            
+            transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'programadoraenapuros@gmail.com',
+                    pass: 'SkyLabProyecto'
+                }
+            })
+            
+                mailOptions = {
+                    from: 'FriendEscape',
+                    to: `${email}`,
+                    subject: 'We hope to see you soon',
+                    text: body
+    
+
+              }
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log('Email sent: ' + info.response);
+                    }
               
-        //     })
-        // })
+            })
+        })
         .then(() => {})
     })
 }

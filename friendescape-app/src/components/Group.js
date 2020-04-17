@@ -7,21 +7,11 @@ import {isOwner, isJoined} from '../logic'
 
 
 
-export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user }) {
+export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup, error, user }) {
     const [warning, setWarning] = useState(false)
     const [warningDelete, setWarningDelete] = useState(false)
-    const [owner, setOwner] = useState()
-    const [joined, setJoined] = useState()
+    const [warningLeave, setWarningLeave] = useState(false)
     const { id, date, time,  subevents, state, escapeRoom} = item
-    console.log(user)
-    console.log(item)
-
-    // if(isOwner(user, id)) {
-        
-    //     setOwner()
-    // } else if (isJoined(group)) {
-    //     console.log('LEAVE')
-    // } else console.log('JOIN')
 
     let style = ""
     if(state === 'inactive') {
@@ -65,7 +55,7 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
             }}><i class="fas fa-trash-alt"></i>Delete team</a>}
             {!isOwner(user, id) && isJoined(item) && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
-                //setWarningDelete(!warning)
+                setWarningLeave(!warning)
             }}><i class="fas fa-trash-alt"></i>Leave team</a>}
 
             
@@ -94,6 +84,21 @@ export default function ({ item, handleJoinGroup, handleDeleteGroup, error, user
             <button onClick={event=> {
                 event.preventDefault();
                 setWarningDelete(false)
+            }}>Cancel</button>
+            </>)}
+
+            {warningLeave && (<>
+            <p>Read carefully these instructions. If you press Leave Team you will receive a fault. If you commit 3 faults you will be banned. </p>
+            <button onClick={ event => {
+                const id = item.id
+                debugger
+                event.preventDefault();
+                setWarningLeave(false)
+                handleLeaveGroup(id)
+                }}>Understood</button>
+            <button onClick={event=> {
+                event.preventDefault();
+                setWarningLeave(false)
             }}>Cancel</button>
             </>)}
             
