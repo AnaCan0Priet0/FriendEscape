@@ -52,7 +52,6 @@ function isJoined (group) {
 }
 
 if(isOwner(user, groupId)) {
-    debugger
     console.log('DELETE')
 } else if (isJoined(group)) {
     console.log('LEAVE')

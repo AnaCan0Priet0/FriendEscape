@@ -91,7 +91,6 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             <p>Read carefully these instructions. If you press Leave Team you will receive a fault. If you commit 3 faults you will be banned. </p>
             <button onClick={ event => {
                 const id = item.id
-                debugger
                 event.preventDefault();
                 setWarningLeave(false)
                 handleLeaveGroup(id)

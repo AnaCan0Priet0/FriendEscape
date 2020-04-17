@@ -289,8 +289,14 @@ export default withRouter(function ({ history }) {
   async function handleJoinGroups(id) {
     try {
       await joinGroups(id)
-      const message = "Joined successfully. Check your email to see the details"
+      const message = "Joined successfully. Check your email to see the details, you have win one trusty point"
       setState({ ...state, error: message })
+
+      setTimeout(() => {
+        setState({ ...state, error: undefined })
+      }, 3000)
+      const availableGroups = await retrieveGroups()
+      setGroupList(availableGroups)
       history.push('/groups')
 
     } catch (error) {
@@ -316,11 +322,16 @@ export default withRouter(function ({ history }) {
     try {
       const state = 'active'
       await createGroup(roomId, date, time, state)
-      const message = " You created a new group, please check your email"
+      const message = " You created a new group, please check your email, and good news you received a trusty point"
       setState({ ...state, error: message })
-      history.push('/home')
+
+      setTimeout(() => {
+        setState({ ...state, error: undefined })
+      }, 3000)
+      const availableGroups = await retrieveGroups()
+      setGroupList(availableGroups)
+      history.push('/groups')
     } catch (error) {
-      //return __handleError__(error)
       console.error(error)
     }
   }
@@ -338,18 +349,33 @@ export default withRouter(function ({ history }) {
   async function handleDeleteGroups(id){
     try {
       await deleteGroup(id)
-      history.push('/home')
+      const message = " You deleted a group, please check your email and you will receive a foul"
+      setState({ ...state, error: message })
+      setTimeout(() => {
+        setState({ ...state, error: undefined })
+      }, 3000)
+      const availableGroups = await retrieveGroups()
+
+      setGroupList(availableGroups)
+      history.push('/groups')
     } catch (error) {
-      //return __handleError__(error)
       console.error(error)
     }
   }
 
   async function handleLeaveGroups(id){
     try {
-
       await leaveGroup(id)
-      history.push('/home')
+      const message = " You leave a group, please check your email and you will receive a foul"
+      setState({ ...state, error: message })
+
+      setTimeout(() => {
+        setState({ ...state, error: undefined })
+      }, 3000)
+      const availableGroups = await retrieveGroups()
+      setGroupList(availableGroups)
+      history.push('/groups')
+      
     } catch (error) {
       console.error(error)
     }

@@ -1,10 +1,11 @@
 const { deactivateUser } = require('../logic')
-const { ContentError } = require('friendescape-errors')
+const {  ContentError } = require('friendescape-errors')
 
-module.exports = ({params}, res) => {
+module.exports = (req, res) => {
+    const { payload: { sub: id } } = req
 
     try {
-        deactivateUser(params.id)
+        deactivateUser(id)
             .then(() => res.status(201).end())
             .catch(error => {
                 let status = 400

@@ -1,11 +1,13 @@
 import { NotAllowedError } from 'friendescape-errors'
 import context from './context'
 
+
 const API_URL = process.env.REACT_APP_API_URL
 
-export default (function (id) {
+export default (function () {
     return (async () => {
-        const response = await fetch(`${API_URL}/groups/delete/${id}`, {
+  
+        const response = await fetch(`${API_URL}/deactivate`, {
             method: 'PATCH',
             headers: {
                 Authorization: `Bearer ${this.token}`

@@ -89,7 +89,7 @@ mongoose.connect(MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true 
 
         app.get('/escaperoom/:id', retrieveEscapeRoom)
 
-        app.patch('/deactivate/:id', deactivateUser)
+        app.patch('/deactivate', jwtVerifierMidWare, deactivateUser)
 
         app.get('/groups-user', jwtVerifierMidWare, groupsUser)
 

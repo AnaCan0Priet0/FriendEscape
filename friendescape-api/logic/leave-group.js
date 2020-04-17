@@ -4,9 +4,7 @@ const { NotFoundError} = require('friendescape-errors')
 const nodemailer = require('nodemailer')
 
 
-
 module.exports = (userId, groupId) => {
- debugger
     validate.string(userId, 'userId')
     validate.string(groupId, 'groupId') 
 
@@ -26,7 +24,6 @@ module.exports = (userId, groupId) => {
             Escape Room: ${title},
             Date: ${date},
             Time: ${time},
-            
             
             Aditional information: 
             
