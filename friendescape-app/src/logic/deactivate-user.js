@@ -6,7 +6,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 export default (function () {
     return (async () => {
-  
+        debugger
         const response = await fetch(`${API_URL}/deactivate`, {
             method: 'PATCH',
             headers: {
@@ -31,6 +31,5 @@ export default (function () {
             throw new Error(error)
         }
 
-        throw new Error('server error')
     })()
 }).bind(context)

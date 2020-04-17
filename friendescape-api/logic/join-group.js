@@ -14,7 +14,7 @@ module.exports = (userId, groupId) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
             
-            return Promise.all([User.findByIdAndUpdate(userId, { $addToSet: { subbedTo: groupId } }, { $inc: { trusty: 1 }}), Group.findByIdAndUpdate(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email').populate('escapeRoom', 'title')
+            return Promise.all([User.findByIdAndUpdate(userId, { $addToSet: { subbedTo: groupId } }), Group.findByIdAndUpdate(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email').populate('escapeRoom', 'title')
             
             ])
         

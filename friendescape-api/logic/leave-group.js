@@ -18,7 +18,7 @@ module.exports = (userId, groupId) => {
         .then(([user, group]) => {
 
             const {date, time, escapeRoom :{title}} = user
-            const {foults, trusty, state, name, surname, email} = group
+            const {name, surname, email} = group
             const body = `Hi ${name} ${surname}, 
             Here do you have the information the team that you just leaved:
             Escape Room: ${title},

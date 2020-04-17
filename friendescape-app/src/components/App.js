@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react'
 import { Register, Profile, Login, CreateGroup, Page, Landing, Home, Themes, SelectedDifficulty, SelectedThemes, Locations, ERDetail, Groups, Difficulty } from '../components'
-import { registerUser, retrieveUser, login, logout, isLoggedIn, search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, deleteGroup, leaveGroup, createGroup, retrieveGroups } from '../logic'
+import { registerUser, retrieveUser, login, logout, isLoggedIn, search, retrieveEasy, retrieveTheme, escapeList, retrieveER, joinGroups, deleteGroup, deactivateUser, leaveGroup, createGroup, retrieveGroups } from '../logic'
 import { Context } from './ContextProvider'
 import 'moment-timezone'
 import { Route, withRouter, Redirect } from 'react-router-dom'
@@ -58,7 +58,7 @@ export default withRouter(function ({ history }) {
 
   async function handleMountLanding() {
     const availableEscapes = await escapeList()
-      setEscapeList(availableEscapes)
+    setEscapeList(availableEscapes)
 
     setState({ page: 'landing' })
   }
@@ -289,9 +289,10 @@ export default withRouter(function ({ history }) {
   async function handleJoinGroups(id) {
     try {
       await joinGroups(id)
+      user.trusty++
+      console.log(user)
       const message = "Joined successfully. Check your email to see the details, you have win one trusty point"
       setState({ ...state, error: message })
-
       setTimeout(() => {
         setState({ ...state, error: undefined })
       }, 3000)
@@ -336,7 +337,7 @@ export default withRouter(function ({ history }) {
     }
   }
 
-  async function handleProfile(){
+  async function handleProfile() {
     try {
       const user = await retrieveUser()
       setUser(user)
@@ -346,68 +347,79 @@ export default withRouter(function ({ history }) {
     }
   }
 
-  async function handleDeleteGroups(id){
+  async function handleDeleteGroups(id) {
     try {
       await deleteGroup(id)
-      const message = " You deleted a group, please check your email and you will receive a foul"
-      setState({ ...state, error: message })
-      setTimeout(() => {
-        setState({ ...state, error: undefined })
-      }, 3000)
-      const availableGroups = await retrieveGroups()
-
-      setGroupList(availableGroups)
-      history.push('/groups')
+      user.foults++
+      if (user.foults > 2) {
+        await deactivateUser(id)
+        await logout()
+        history.push('/landing')
+      } else {
+        const message = " You deleted a group, please check your email and you will receive a foult, with three your account will be deactivated"
+        setState({ ...state, error: message })
+        setTimeout(() => {
+          setState({ ...state, error: undefined })
+        }, 3000)
+        const availableGroups = await retrieveGroups()
+        setGroupList(availableGroups)
+        history.push('/groups')
+      }
     } catch (error) {
       console.error(error)
     }
   }
 
-  async function handleLeaveGroups(id){
-    try {
-      await leaveGroup(id)
-      const message = " You leave a group, please check your email and you will receive a foul"
+async function handleLeaveGroups(id) {
+  try {
+    await leaveGroup(id)
+    user.foults++
+    if (user.foults > 2) {
+      await deactivateUser(id)
+      await logout()
+      history.push('/landing')
+    } else {
+      const message = " You leave a group, please check your email and you will receive a foult, with three your account will be deactivated"
       setState({ ...state, error: message })
-
       setTimeout(() => {
         setState({ ...state, error: undefined })
       }, 3000)
       const availableGroups = await retrieveGroups()
       setGroupList(availableGroups)
       history.push('/groups')
-      
-    } catch (error) {
-      console.error(error)
     }
+  } catch (error) {
+    console.error(error)
   }
+}
 
 
-  
 
 
-  return <div>
 
-    <Page name={page}>
-      <Route exact path="/" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Redirect to="landing" />} />
-      <Route path="/landing" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Landing onGoToRegister={handleGoToRegister} onGoToLogin={handleGoToLogin} onMount={handleMountLanding} />} />
-      <Route path="/login" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Login onSubmit={handleLogin} error={error} onGoToRegister={handleGoToRegister} onMount={handleMountLogin} />} />
-      <Route path="/register" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Register onSubmit={handleRegister} error={error} onGoToLogin={handleGoToLogin} onMount={handleMountRegister} />} />
-      <Route path='/home' render={() => isLoggedIn() ? <Home user={user} onCreateAGroup={handleCreateAGroup} onHandleLogOut={handleLogOut} availableEscape={escapes} onGoToSearch={handleSearch} onHandleProfile={handleProfile} onHandleLocations={handleLocations} onHandleDifficulty={handleDifficulty} onGoToDetail={handleDetail} onHandleTheme={handleTheme} onGoToJoinGroups={joinGroup} /> : <Redirect to="/home" />} />
-      <Route path='/escaperoom/:id' render={props => isLoggedIn() ? <ERDetail onHandleProfile={handleProfile} user={user} onHandleGoHome={handleGoHome} escaperooom={detail} onHandleLogOut={handleLogOut} onHandleProfile={handleProfile} escaperoomId={props.match.params.id} onHandleItemClick={handleDetail} /> : <Redirect to="landing" />} />
-      <Route path='/locations' render={() => isLoggedIn() ? <Locations user={user} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} /> : <Redirect to="landing" />} />
-      <Route path='/themes' render={() => isLoggedIn() ? <Themes user={user} onHandleGoHome={handleGoHome} setTheme={theme} onHandleLogOut={handleLogOut} onHandleFiction={handleFiction} onHandleHistorical={handleHistorical} onHandleCriminal={handleCriminal} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
-      <Route path='/groups' render={() => isLoggedIn() ? <Groups user={user} availableGroups={group} onHandleLogOut={handleLogOut} onHandleGoHome={handleGoHome} handleJoinGroup={handleJoinGroups} handleLeaveGroup={handleLeaveGroups} handleDeleteGroup={handleDeleteGroups} error={error} /> : <Redirect to="landing" />} />
-      <Route path='/difficulty' render={() => isLoggedIn() ? <Difficulty user={user} onHandleGoHome={handleGoHome} onHandleEasy={handleEasy} onHandleMedium={handleMedium} onHandleHard={handleHard} /> : <Redirect to="landing" />} />
-      <Route path='/difficulty/easy' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
-      <Route path='/difficulty/medium' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
-      <Route path='/difficulty/hard' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
-      <Route path='/themes/fiction' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFiction={handleFiction} /> : <Redirect to="landing" />} />
-      <Route path='/themes/fear' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
-      <Route path='/themes/criminal' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleCriminal={handleCriminal} /> : <Redirect to="landing" />} />
-      <Route path='/themes/historical' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleHistorical={handleHistorical} /> : <Redirect to="landing" />} />
-      <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup user={user} availableEscapes={escapes} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} /> : <Redirect to="landing" />} />
-      <Route path='/profile' render={() => isLoggedIn() ? <Profile user={user} onHandleGoHome={handleGoHome} onGoToJoinGroups={joinGroup} onHandleProfile={handleProfile} onHandleLogOut={handleLogOut} onCreateAGroup={handleCreateAGroup} /> : <Redirect to="landing" />} />>}
+return <div>
+
+  <Page name={page}>
+    <Route exact path="/" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Redirect to="landing" />} />
+    <Route path="/landing" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Landing onGoToRegister={handleGoToRegister} onGoToLogin={handleGoToLogin} onMount={handleMountLanding} />} />
+    <Route path="/login" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Login onSubmit={handleLogin} error={error} onGoToRegister={handleGoToRegister} onMount={handleMountLogin} />} />
+    <Route path="/register" render={() => isLoggedIn() ? <Redirect to="/home" /> : <Register onSubmit={handleRegister} error={error} onGoToLogin={handleGoToLogin} onMount={handleMountRegister} />} />
+    <Route path='/home' render={() => isLoggedIn() ? <Home user={user} onCreateAGroup={handleCreateAGroup} onHandleLogOut={handleLogOut} availableEscape={escapes} onGoToSearch={handleSearch} onHandleProfile={handleProfile} onHandleLocations={handleLocations} onHandleDifficulty={handleDifficulty} onGoToDetail={handleDetail} onHandleTheme={handleTheme} onGoToJoinGroups={joinGroup} /> : <Redirect to="/home" />} />
+    <Route path='/escaperoom/:id' render={props => isLoggedIn() ? <ERDetail onHandleProfile={handleProfile} user={user} onHandleGoHome={handleGoHome} escaperooom={detail} onHandleLogOut={handleLogOut} onHandleProfile={handleProfile} escaperoomId={props.match.params.id} onHandleItemClick={handleDetail} /> : <Redirect to="landing" />} />
+    <Route path='/locations' render={() => isLoggedIn() ? <Locations user={user} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} /> : <Redirect to="landing" />} />
+    <Route path='/themes' render={() => isLoggedIn() ? <Themes user={user} onHandleGoHome={handleGoHome} setTheme={theme} onHandleLogOut={handleLogOut} onHandleFiction={handleFiction} onHandleHistorical={handleHistorical} onHandleCriminal={handleCriminal} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
+    <Route path='/groups' render={() => isLoggedIn() ? <Groups user={user} availableGroups={group} onHandleLogOut={handleLogOut} onHandleGoHome={handleGoHome} handleJoinGroup={handleJoinGroups} handleLeaveGroup={handleLeaveGroups} handleDeleteGroup={handleDeleteGroups} error={error} /> : <Redirect to="landing" />} />
+    <Route path='/difficulty' render={() => isLoggedIn() ? <Difficulty user={user} onHandleGoHome={handleGoHome} onHandleEasy={handleEasy} onHandleMedium={handleMedium} onHandleHard={handleHard} /> : <Redirect to="landing" />} />
+    <Route path='/difficulty/easy' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
+    <Route path='/difficulty/medium' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
+    <Route path='/difficulty/hard' render={() => isLoggedIn() ? <SelectedDifficulty difficultyEscapes={difficulty} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} /> : <Redirect to="landing" />} />
+    <Route path='/themes/fiction' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFiction={handleFiction} /> : <Redirect to="landing" />} />
+    <Route path='/themes/fear' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleFear={handleFear} /> : <Redirect to="landing" />} />
+    <Route path='/themes/criminal' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleCriminal={handleCriminal} /> : <Redirect to="landing" />} />
+    <Route path='/themes/historical' render={() => isLoggedIn() ? <SelectedThemes themeEscapes={theme} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onGoToDetail={handleDetail} onHandleHistorical={handleHistorical} /> : <Redirect to="landing" />} />
+    <Route path='/create-group' render={() => isLoggedIn() ? <CreateGroup user={user} availableEscapes={escapes} onHandleGoHome={handleGoHome} onHandleLogOut={handleLogOut} onHandleCreateANewGroup={handleNewGroup} /> : <Redirect to="landing" />} />
+    <Route path='/profile' render={() => isLoggedIn() ? <Profile user={user} onHandleGoHome={handleGoHome} onGoToJoinGroups={joinGroup} onHandleProfile={handleProfile} onHandleLogOut={handleLogOut} onCreateAGroup={handleCreateAGroup} /> : <Redirect to="landing" />} />>}
     </Page>
 
-  </div>
+</div>
 })

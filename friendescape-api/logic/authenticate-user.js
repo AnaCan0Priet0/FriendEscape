@@ -12,7 +12,7 @@ module.exports = (email, password) => {
         .then(user => {
             if (!user) throw new NotAllowedError(`wrong credentials`)
             console.log(user)
-            if(user.deactivated === "1") throw new NotAllowedError(`this user is deactivated`)
+            if(user.deactivated === "1") throw new NotAllowedError(`this user had several foults for this reason is deactivated`)
 
             return bcrypt.compare(password, user.password)
                 .then(validPassword => {

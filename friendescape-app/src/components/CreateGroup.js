@@ -27,14 +27,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     var today = new Date()
     var nextMonths = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 90);
 
-    // function handleDate(selectedDate) {
-    //     alert(selectedDate)
-    //     setDate(selectedDate)
-    // }
 
-    // function handleSetTime(selectedTime) {
-    //     setTime(selectedTime)
-    // }
 
     return <>
         {/* Header */}
@@ -72,7 +65,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                         doneButton={(newTime) => (
                             <div
                                 style={{ textAlign: 'center', padding: '10px 0' }}
-                            // onClick={() => alert('new time is now', newTime.formatted12)}
+                            
                             >
                             </div>
 
