@@ -19,10 +19,9 @@ export default function ({ item, onGoToDetail}) {
         }}>
             <h4>Title: {title}</h4>
             <h5>Theme: {theme}</h5>
-            <h5>Difficulty: {difficulty}</h5>
+            <h5>Difficulty: <span class={"rating-three rating-three-" + difficulty}></span></h5>
             <img src={img} />
-            <h5>Punctuation: {punctuation}</h5>
-
+            <h5>Punctuation: <span class={"rating-five rating-five-" + punctuation}></span></h5>
         </li>
     </>
 }

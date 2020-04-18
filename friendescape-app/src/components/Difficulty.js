@@ -54,7 +54,7 @@ export default function ({user, onHandleEasy, onHandleMedium, onHandleHard, onHa
     <div className="difficulty">
         <h1 className="difficulty__text">CHOOSE A DIFFICULTY</h1>
 
-        <img className='img__easy' src={Easy} onClick={handleEasy} alt="img escroom"/>
+        <img className='img__easy' src={Easy} onClick={handleEasy} alt="img escroom"/>}
         <img className='img__medium' src={Medium} onClick={handleMedium} alt="img escroom"/>
         <img className='img__hard' src={Hard} onClick={handleHard} alt="img escroom"/>
         <a href="" onClick = {handleGoToHome} className="btn--difficulty"><i class="fas fa-undo-alt"></i>Go Back</a>

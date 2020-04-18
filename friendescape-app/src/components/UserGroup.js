@@ -31,9 +31,9 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             
             <h5>Location: {escapeRoom.location}</h5>
             <h5>Time: {time}</h5>
-            <h5>Punctuation: {escapeRoom.punctuation}</h5>
+            <h5>Punctuation: <span class={"rating-five rating-five-" + escapeRoom.punctuation}></span>F</h5>
             <h5>Theme: {escapeRoom.theme}</h5>
-            <h5>Difficulty: {escapeRoom.difficulty}</h5>
+            <h5>Difficulty: <span class={"rating-three rating-three-" + escapeRoom.difficulty}></span></h5>
             <h5>Duration: {escapeRoom.duration}</h5>
             <h5>Price: {escapeRoom.price}</h5>
             <h5>State: {state}</h5>
