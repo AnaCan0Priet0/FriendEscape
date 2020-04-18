@@ -12,8 +12,6 @@ module.exports = (userId, groupId) => {
 
     return Promise.all([User.findById(userId), Group.findById(groupId)])
         .then(([user, group]) => {
-            console.log(user)
-            console.log(group)
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
             user.foults++

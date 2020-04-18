@@ -6,11 +6,11 @@ import Moment from 'react-moment'
 
 
 
-export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoinGroups, onHandleProfile, onCreateAGroup }) {
+export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHandleGoHome, onGoToJoinGroups, onHandleProfile, onCreateAGroup }) {
 
 
-    const { name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo: Group } = user
-    console.log(user)
+    const { name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo } = user
+
     function handleLogOut(event) {
         event.preventDefault()
         onHandleLogOut()
@@ -42,6 +42,11 @@ export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoin
         event.preventDefault()
         onHandleGoHome()
      }
+
+     function handleGoToUserGroups(event){
+         event.preventDefault()
+         onHandleGoUserGroups()
+     }
     return <>
         {/* Header */}
         <div className="header">
@@ -65,6 +70,7 @@ export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoin
                 <h5>Email: {email}</h5>
                 <h5>Telf: {telf}</h5>
                 <h5>Groups that you created: </h5>
+                {/* <ul>user.pubevents.length</ul> */}
                 <ul> {pubevents && pubevents.map(pub => (<>
                     <li>{pub}</li>
                 </>))}</ul>
@@ -78,7 +84,7 @@ export default function ({ user, _id, onHandleLogOut, onHandleGoHome, onGoToJoin
                     <li>{subbed.created}</li>
                     <br></br>
                 </>))}</ul>
-                <button>See Details</button>
+                <button onClick={handleGoToUserGroups}>See Details</button>
                 <h5>Foults: {foults}</h5>
                 <h5>Trusty: {trusty}</h5>
                 <h5>Account: {deactivated}</h5>

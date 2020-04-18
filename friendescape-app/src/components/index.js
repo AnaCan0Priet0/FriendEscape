@@ -19,6 +19,8 @@ import CreateGroup from './CreateGroup'
 import Calendar from './Calendar'
 import Clock from './Clock'
 import Profile from './Profile'
+import UserGroups from './UserGroups'
+import UserGroup from './UserGroup'
 
 
 
@@ -44,5 +46,7 @@ export {
     CreateGroup,
     Calendar, 
     Clock,
-    Profile
+    Profile,
+    UserGroups,
+    UserGroup
 }
