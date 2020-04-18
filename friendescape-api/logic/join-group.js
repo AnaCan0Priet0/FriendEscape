@@ -13,8 +13,11 @@ module.exports = (userId, groupId) => {
         .then(([user, group]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
-            
-            return Promise.all([User.findByIdAndUpdate(userId, { $addToSet: { subbedTo: groupId } }), Group.findByIdAndUpdate(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email').populate('escapeRoom', 'title')
+      
+            user.trusty++
+            user.save()
+
+            return Promise.all([User.findByIdAndUpdate(userId, { $addToSet: { subbedTo: groupId } }), Group.findByIdAndUpdate(groupId, { $addToSet: { subevents: userId } }).populate('subevents', 'name surname email').populate('escapeRoom', 'title maxplayers')
             
             ])
         
@@ -29,7 +32,7 @@ module.exports = (userId, groupId) => {
             Escape Room: ${title},
             Date: ${date},
             Time: ${time},
-            Group Members: ${members},
+            Just in case you need to contact with your team members: ${members},
             If your group appears in green this means that the group is completed.
             You will earn one trusty point per each group that you create or join.
             You can check your trusty points in your profile.
@@ -67,3 +70,10 @@ module.exports = (userId, groupId) => {
         .then(() => {})
     })
 }
+
+
+
+
+
+
+

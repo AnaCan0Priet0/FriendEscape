@@ -289,8 +289,6 @@ export default withRouter(function ({ history }) {
   async function handleJoinGroups(id) {
     try {
       await joinGroups(id)
-      user.trusty++
-      console.log(user)
       const message = "Joined successfully. Check your email to see the details, you have win one trusty point"
       setState({ ...state, error: message })
       setTimeout(() => {
