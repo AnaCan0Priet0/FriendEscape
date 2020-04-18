@@ -329,7 +329,7 @@ export default withRouter(function ({ history }) {
       }, 3000)
       const availableGroups = await retrieveGroups()
       setGroupList(availableGroups)
-      history.push('/groups')
+      history.push('/landing')
     } catch (error) {
       console.error(error)
     }
@@ -348,7 +348,6 @@ export default withRouter(function ({ history }) {
   async function handleDeleteGroups(id) {
     try {
       await deleteGroup(id)
-      user.foults++
       if (user.foults > 2) {
         await deactivateUser(id)
         await logout()
@@ -371,7 +370,6 @@ export default withRouter(function ({ history }) {
 async function handleLeaveGroups(id) {
   try {
     await leaveGroup(id)
-    user.foults++
     if (user.foults > 2) {
       await deactivateUser(id)
       await logout()

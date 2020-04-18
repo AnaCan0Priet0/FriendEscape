@@ -9,6 +9,7 @@ module.exports = (userId, groupId) => {
 
     validate.string(userId, 'userId')
     validate.string(groupId, 'groupId') 
+    
     return Promise.all([User.findById(userId), Group.findById(groupId)])
         .then(([user, group]) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)

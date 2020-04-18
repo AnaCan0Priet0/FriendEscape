@@ -11,9 +11,10 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     validate.string(state, 'state')
     
     return ( async () =>{ 
-
+    
     const newGroup = new Group({date, time, state, escapeRoom: escaperoomId} )
     
+   
     newGroup.subevents.push(userId)
 
     const user = await User.findById(userId)

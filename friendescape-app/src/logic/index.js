@@ -18,6 +18,7 @@ import isOwner from './is-owner'
 import leaveGroup from './leave-group'
 import deactivateUser from './deactivate-user'
 
+
 export {
     isLoggedIn,
     registerUser,
@@ -37,5 +38,6 @@ export {
     isJoined,
     isOwner,
     leaveGroup,
-    deactivateUser
+    deactivateUser, 
+
 }

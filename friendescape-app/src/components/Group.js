@@ -44,7 +44,7 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
        </li>
             
             {/* {!user.subbedTo[0]._id === id && ( */}
-            {!isOwner(user, id) && !isJoined(item) && <a href="" className="group__btn" onClick={e => {
+            {!isOwner(user, id) && !isJoined(item) && subevents.length < escapeRoom.maxplayers  && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
             }}><i class="fas fa-users"></i>Join team</a>}
@@ -57,6 +57,10 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
                 e.preventDefault()
                 setWarningLeave(!warning)
             }}><i class="fas fa-trash-alt"></i>Leave team</a>}
+            {!isOwner(user, id) && !isJoined(item) && subevents.length >= escapeRoom.maxplayers  && <a href="" className="group__btn" onClick={e => {
+                e.preventDefault()
+            }}><i class="fas fa-users"></i>This team is complete</a>}
+
 
             
             {warning && (<>

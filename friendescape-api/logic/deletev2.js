@@ -16,7 +16,8 @@ module.exports = (userId, groupId) => {
             console.log(group)
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
-            // if (group.subevents.includes(userId))throw new NotFoundError (`this user is already on the group`)
+            user.foults++
+            user.save()
             return Promise.all([User.findByIdAndUpdate(userId, { $pullAll: { subbedTo: [groupId] } } ), Group.findByIdAndUpdate(groupId, { $set:{ state: "inactive" } } )])
     
         .then(([user, group]) => {

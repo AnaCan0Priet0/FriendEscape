@@ -1,4 +1,4 @@
-const { Schema, Types: { ObjectId } } = require('mongoose')
+ const { Schema, Types: { ObjectId } } = require('mongoose')
 
 module.exports = new Schema({
     name: {type: String },

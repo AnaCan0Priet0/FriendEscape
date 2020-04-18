@@ -14,7 +14,7 @@ module.exports = (userId, groupId) => {
             if (!user) throw new NotFoundError(`user with id ${userId} does not exist`)
             if (!group) throw new NotFoundError(`group with id ${groupId} does not exist`)
             return Promise.all([ Group.findByIdAndUpdate(groupId, { $pull: { subevents: userId } }).populate('escapeRoom', 'title'),User.findByIdAndUpdate(userId, { $inc: { foults: 1 } } ).populate('subbedTo', 'date time') ])
-
+            
         .then(([user, group]) => {
 
             const {date, time, escapeRoom :{title}} = user
