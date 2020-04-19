@@ -6,8 +6,6 @@ import UserGroup from './UserGroup'
 
 export default function ({ user, availableGroups, onHandleProfile, onHandleLogOut, onHandleGoHome, onItemClick, handleJoinGroup, handleDeleteGroup, handleLeaveGroup,  error}) {
     const {name} = user
-    console.log(user)
-    console.log(availableGroups)
 
     function handleProfile(event){
         event.preventDefault()

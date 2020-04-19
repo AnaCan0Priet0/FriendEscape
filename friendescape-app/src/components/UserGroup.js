@@ -6,13 +6,12 @@ import Feedback from './Feedback'
 import {isOwner, isJoined} from '../logic'
 
 
-
 export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup, error, user }) {
     const [warning, setWarning] = useState(false)
     const [warningDelete, setWarningDelete] = useState(false)
     const [warningLeave, setWarningLeave] = useState(false)
     const { id, date, time,  subevents, state, escapeRoom} = item
-    console.log(user)
+    
     let style = ""
     if(state === 'inactive') {
         style = "item__disabled"
@@ -20,6 +19,7 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
         subevents.length >= escapeRoom.minplayers ? style= "itemno" : style = "itemyes"
     }
     console.log(user.subbedTo)
+    console.log(item)
     
 
      return <>
@@ -31,7 +31,7 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             
             <h5>Location: {escapeRoom.location}</h5>
             <h5>Time: {time}</h5>
-            <h5>Punctuation: <span class={"rating-five rating-five-" + escapeRoom.punctuation}></span>F</h5>
+            <h5>Punctuation: <span class={"rating-five rating-five-" + escapeRoom.punctuation}></span></h5>
             <h5>Theme: {escapeRoom.theme}</h5>
             <h5>Difficulty: <span class={"rating-three rating-three-" + escapeRoom.difficulty}></span></h5>
             <h5>Duration: {escapeRoom.duration}</h5>
@@ -39,10 +39,9 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             <h5>State: {state}</h5>
             <img className='results__img' src ={escapeRoom.img} alt="img escroom"/>
             <h5>Subevents: {subevents && subevents.map(subbed =>(<>
-                <p>name {subbed.name}</p>
-                <p>subbed id {subbed._id}</p>
-                <p>group id2{id}</p>
 
+            
+                <p>name {subbed.name}</p>
 
             </>))}</h5>
             <h5>Min-Players: {escapeRoom.minplayers}</h5>

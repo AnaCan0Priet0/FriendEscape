@@ -335,6 +335,7 @@ export default withRouter(function ({ history }) {
     try {
       const user = await retrieveUser()
       setUser(user)
+      
       history.push('/profile')
     } catch (error) {
       console.error(error)

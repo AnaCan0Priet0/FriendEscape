@@ -14,9 +14,9 @@ export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHa
     let level
 
 
-    if(user.trusty < 5){
+    if (user.trusty < 5) {
         level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png"
-    } else if (user.trusty > 5 && trusty < 9){
+    } else if (user.trusty > 5 && trusty < 9) {
         level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png"
     } else {
         level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png"
@@ -43,23 +43,23 @@ export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHa
         onHandleProfile()
     }
 
-    function handleGoToHome(event){
+    function handleGoToHome(event) {
         event.preventDefault()
         onHandleGoHome()
-     }
+    }
 
-     function handleGoToHome(event){
+    function handleGoToHome(event) {
         event.preventDefault()
         onHandleGoHome()
-     }
+    }
 
-     function handleGoToUserGroups(event){
-         event.preventDefault()
-         onHandleGoUserGroups()
-     }
-     debugger
+    function handleGoToUserGroups(event) {
+        event.preventDefault()
+        onHandleGoUserGroups()
+    }
+
     return <>
-    
+
         {/* Header */}
         <div className="header">
             <figure>
@@ -73,32 +73,33 @@ export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHa
         </div>
 
 
-        <a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
+        <a href="" onClick={handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
 
         <div className="profile">
-            
+
             <div className="profile__text">
                 <img className="profile__picture" src={level} alt="Profile"></img>
                 <h5>Name: {name}</h5>
                 <h5>Surname: {surname}</h5>
                 <h5>Email: {email}</h5>
                 <h5>Telf: {telf}</h5>
-                <h5>Groups that you created: </h5>
-                {/* <ul>user.pubevents.length</ul> */}
-                <ul> {pubevents && pubevents.map(pub => (<>
-                    <li>{pub}</li>
-                </>))}</ul>
-                <button>See Details</button>
+                
+                <h5>Published teams {user.pubevents.length} teams</h5>
+                <h5>Subscribed to {subbedTo.length} teams</h5>
 
-                <h5>Groups that you have joined: </h5>
-                <ul> {user.subbedTo && user.subbedTo.map(subbed =>(<>
+                {/* <ul> {pubevents && pubevents.map(pub => (<>
+                    <li>{pub}</li>
+                </>))}</ul> */}
+
+{/*             
+                <ul> {user.subbedTo && user.subbedTo.map(subbed => (<>
                     <li>{subbed._id}</li>
                     <li><Moment format="YYYY/MM/DD">{subbed.date}</Moment></li>
                     <li>{subbed.time}</li>
                     <li>{subbed.created}</li>
                     <br></br>
-                </>))}</ul>
-                <button onClick={handleGoToUserGroups}>See Details</button>
+                </>))}</ul> */}
+                <button className="btn__team" onClick={handleGoToUserGroups}><i class="fas fa-users"></i>Your teams</button>
                 <h5>Foults: {foults}</h5>
                 <h5>Trusty: {trusty}</h5>
                 <h5>Account: {deactivated}</h5>

@@ -7,7 +7,7 @@ import {isOwner, isJoined} from '../logic'
 
 
 
-export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup,  onHandleProfile, error, user }) {
+export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup, error, user }) {
     const [warning, setWarning] = useState(false)
     const [warningDelete, setWarningDelete] = useState(false)
     const [warningLeave, setWarningLeave] = useState(false)
@@ -21,11 +21,7 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
         subevents.length >= escapeRoom.minplayers ? style= "itemno" : style = "itemyes"
     }
 
-    function handleProfile(event){
-        event.preventDefault()
-        onHandleProfile()
-    }
-
+    
      return <>
     <div className={style}>
         <li>
@@ -50,7 +46,6 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
                 <span className="join__foults"> Foults: {subbed.foults}</span>
                 <br></br>
                 <br></br>
-                <i class="fas fa-cog" onClick={handleProfile}></i>
 
                 
             </>))}</h5>
