@@ -7,17 +7,23 @@ import {isOwner, isJoined} from '../logic'
 
 
 
-export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup, error, user }) {
+export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDeleteGroup,  onHandleProfile, error, user }) {
     const [warning, setWarning] = useState(false)
     const [warningDelete, setWarningDelete] = useState(false)
     const [warningLeave, setWarningLeave] = useState(false)
     const { id, date, time,  subevents, state, escapeRoom} = item
+
 
     let style = ""
     if(state === 'inactive') {
         style = "item__disabled"
     } else {
         subevents.length >= escapeRoom.minplayers ? style= "itemno" : style = "itemyes"
+    }
+
+    function handleProfile(event){
+        event.preventDefault()
+        onHandleProfile()
     }
 
      return <>
@@ -35,15 +41,24 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             <h5>Price: {escapeRoom.price}</h5>
             <h5>State: {state}</h5>
             <img className='results__img' src ={escapeRoom.img} alt="img escroom"/>
-            <h5>Subevents: {subevents && subevents.map(subbed => (<>
-                <p>{subbed.name}</p>
+            <h5 className="join__integrantes"> Team members: <br></br><br></br>{subevents && subevents.map(subbed => (<>
+                <span> {subbed.name}</span>
+                <span> {subbed.surname}</span>
+                <br></br>
+                <span className="join__trusty"> Trusty points: {subbed.trusty}</span>
+                <br></br>
+                <span className="join__foults"> Foults: {subbed.foults}</span>
+                <br></br>
+                <br></br>
+                <i class="fas fa-cog" onClick={handleProfile}></i>
+
                 
             </>))}</h5>
             <h5>Min-Players: {escapeRoom.minplayers}</h5>
             <h5>Max-Players: {escapeRoom.maxplayers}</h5>
        </li>
             
-            {/* {!user.subbedTo[0]._id === id && ( */}
+
             {!isOwner(user, id) && !isJoined(item) && subevents.length < escapeRoom.maxplayers  && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
                 setWarning(!warning)
@@ -57,7 +72,7 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
                 e.preventDefault()
                 setWarningLeave(!warning)
             }}><i class="fas fa-trash-alt"></i>Leave team</a>}
-            {!isOwner(user, id) && !isJoined(item) && subevents.length >= escapeRoom.maxplayers  && <a href="" className="group__btn" onClick={e => {
+            {subevents.length >= escapeRoom.maxplayers  && <a href="" className="group__btn" onClick={e => {
                 e.preventDefault()
             }}><i class="fas fa-users"></i>This team is complete</a>}
 
@@ -107,10 +122,6 @@ export default function ({ item, handleJoinGroup, handleLeaveGroup, handleDelete
             
             
             {error && <Feedback message={error} level="warning"/>}
-            {/* <button onClick={() => {
-        alert.show('Read carefully these instructions. If you press Join Group you will be a new member of the group. If you are a show off you will receive a fault. If you commit 3 faults you will be banned.')
-      }} >Join Group
-    </button> */}
 
 
         </li>

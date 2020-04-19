@@ -13,7 +13,6 @@ module.exports = (escaperoomId, userId, date, time, state ) => {
     return ( async () =>{ 
     
     const newGroup = new Group({date, time, state, escapeRoom: escaperoomId} )
-    
    
     newGroup.subevents.push(userId)
 

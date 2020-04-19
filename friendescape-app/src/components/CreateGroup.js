@@ -6,7 +6,7 @@ import TimeKeeper from 'react-timekeeper'
 import '../sass/components/createagroup.sass'
 
 
-export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateANewGroup, availableEscapes }) {
+export default function ({ user, onHandleLogOut, onHandleProfile, onHandleGoHome, onHandleCreateANewGroup, availableEscapes }) {
     const { name } = user
     const [time, setTime] = useState('12:00pm')
     const [selectedRoom, setSelectedRoom] = useState()
@@ -23,6 +23,11 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         onHandleGoHome()
     }
 
+    function handleProfile(event){
+        event.preventDefault()
+        onHandleProfile()
+    }
+
 
     var today = new Date()
     var nextMonths = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 90);
@@ -32,14 +37,15 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
     return <>
         {/* Header */}
         <div className="header">
-            <figure>
-                <img className='header__logo' src={Logo} alt="Logo" />
-            </figure>
-            <div className='header__username'>
-                <span>Welcome {name}</span>
-                <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
-            </div>
-        </div>
+    <figure>
+        <img className='header__logo' src ={Logo} alt="Logo"/>
+    </figure>
+    <div className='header__username'>
+    <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
+    <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
+    </div>
+    </div>
 
         <div className="creategroup">
 
@@ -54,9 +60,11 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                 selectedDate={date}
                 onSelect={function (date) {
                     setDate(new Date(date))
+                    
                 }}
+                
             />
-</div>
+
 
             {date &&
                 <div className="timekeeper">
@@ -67,7 +75,9 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                                 style={{ textAlign: 'center', padding: '10px 0' }}
                             
                             >
+                                <p>Selected time {time}</p>
                             </div>
+                            
 
                         )}
 
@@ -98,7 +108,7 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
                         <p>Price: {selectedRoom.price}</p>
                         <p> Min-players: {selectedRoom.minplayers}</p>
                         <p> Max-players: {selectedRoom.maxplayers}</p>
-                        <img src={selectedRoom.img} />
+                        <img alt="img escapeRoom" src={selectedRoom.img} />
                         <a className="btn--main" href={selectedRoom && selectedRoom.web}><i class="fas fa-ticket-alt"></i>Reserva aquí</a>
                     </div>
                 }
@@ -107,12 +117,15 @@ export default function ({ user, onHandleLogOut, onHandleGoHome, onHandleCreateA
         </div>
 
 
-        <span>Time is {time}</span>
-        <button onClick={event => {
+        
+        
+        <button className="btn--difficulty" onClick={event => {
             event.preventDefault();
             onHandleCreateANewGroup(selectedRoom._id, date, time)
         }} className="btn--difficulty"><i class="fas fa-user-plus"></i> Create a Group </button>
- <a href="" onClick = {handleGoToHome} className="btn--difficulty"><i class="fas fa-undo-alt"></i>Go Back</a>
+        <br></br>
+        <button onClick = {handleGoToHome} className="btn--difficulty"><i class="fas fa-undo-alt"></i>Go Back</button>
+        </div>
     </>
 
 }

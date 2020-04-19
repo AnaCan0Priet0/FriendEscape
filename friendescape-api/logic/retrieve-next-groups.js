@@ -8,7 +8,7 @@ module.exports = () => {
     return (async ()=> {
 
         const newdate= new Date
-        const groups = await Group.find({"date" : { "$gt" : newdate}}).populate('subevents', 'name').populate('escapeRoom', 'title location punctuation theme difficulty duration price img minplayers maxplayers')
+        const groups = await Group.find({"date" : { "$gt" : newdate}}).populate('subevents', 'name surname foults trusty').populate('escapeRoom', 'title location punctuation theme difficulty duration price img minplayers maxplayers')
         
         if (!groups) throw new NotFoundError(`No groups defined`)
 

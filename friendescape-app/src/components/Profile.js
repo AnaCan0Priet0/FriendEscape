@@ -1,16 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import '../sass/components/profile.sass'
 import Logo from '../images/FriendEscape.png'
-// import Item from './Item'
+// import Junior from '../images/squirtle.png'
+// import Medium from '../images/squirtle2.png'
+// import Senior from '../images/squirtle3.png'
+
 import Moment from 'react-moment'
 
 
 
 export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHandleGoHome, onGoToJoinGroups, onHandleProfile, onCreateAGroup }) {
+    const { name, surname, email, telf, pubevents, foults, trusty, deactivated, subbedTo } = user
+    let level
 
 
-    const { name, surname, email, telf, password, pubevents, foults, trusty, deactivated, subbedTo } = user
-
+    if(user.trusty < 5){
+        level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/007.png"
+    } else if (user.trusty > 5 && trusty < 9){
+        level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/008.png"
+    } else {
+        level = "https://assets.pokemon.com/assets/cms2/img/pokedex/full/009.png"
+    }
     function handleLogOut(event) {
         event.preventDefault()
         onHandleLogOut()
@@ -47,7 +57,9 @@ export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHa
          event.preventDefault()
          onHandleGoUserGroups()
      }
+     debugger
     return <>
+    
         {/* Header */}
         <div className="header">
             <figure>
@@ -64,7 +76,9 @@ export default function ({ user, _id, onHandleGoUserGroups, onHandleLogOut, onHa
         <a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
 
         <div className="profile">
+            
             <div className="profile__text">
+                <img className="profile__picture" src={level} alt="Profile"></img>
                 <h5>Name: {name}</h5>
                 <h5>Surname: {surname}</h5>
                 <h5>Email: {email}</h5>

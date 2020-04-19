@@ -7,7 +7,7 @@ import Map from './Map.js'
 
 
 
-export default function ({user, onHandleGoHome, onHandleLogOut}) {
+export default function ({user, onHandleGoHome, onHandleLogOut, onHandleProfile}) {
    const {name} = user
 
    function handleGoToHome(event){
@@ -21,6 +21,11 @@ export default function ({user, onHandleGoHome, onHandleLogOut}) {
 
   }
 
+  function handleProfile(event){
+   event.preventDefault()
+   onHandleProfile()
+}
+
    return <>
         <div className="header">
     <figure>
@@ -28,6 +33,7 @@ export default function ({user, onHandleGoHome, onHandleLogOut}) {
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>

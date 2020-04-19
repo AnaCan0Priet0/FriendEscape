@@ -11,7 +11,7 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import '../sass/components/themes.sass'
 
 
-export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction, onHandleHistorical, onHandleCriminal, onHandleFear}) {
+export default function ({user, onHandleProfile, onHandleLogOut, onHandleGoHome, onHandleFiction, onHandleHistorical, onHandleCriminal, onHandleFear}) {
     const {name} = user
 
             
@@ -44,6 +44,11 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
     onHandleFiction()
 }
 
+function handleProfile(event){
+    event.preventDefault()
+    onHandleProfile()
+}
+
     return <>
     {/* Header */}
     <div className="header">
@@ -52,6 +57,7 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
     </figure>
     <div className='header__username'>
     <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
