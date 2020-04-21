@@ -2,22 +2,16 @@ import React from 'react'
 import Item from './Item'
 
 
-export default function ({ onHandleGoHome, difficultyEscapes, onGoToDetail}) {
+export default function ({ difficultyEscapes, onGoToDetail}) {
 
-
-    function handleGoToHome(event){
-        event.preventDefault()
-        onHandleGoHome()
-     }
 
 return <>
 
 
-<div>
- <p>Easy difficulty escapes Room</p>
+<div className="escapesroom cards search">
+ <h1 className= "cards__title">Easy difficulty escapes Room</h1>
  <ul>
      {difficultyEscapes.map(escapeRoom => <Item key={escapeRoom._id} item={escapeRoom} onGoToDetail={onGoToDetail}/>)}
-     <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
  </ul>
 </div>
 

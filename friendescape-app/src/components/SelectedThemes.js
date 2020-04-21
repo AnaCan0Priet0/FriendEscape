@@ -16,11 +16,11 @@ export default function ({ onHandleGoHome, themeEscapes, onGoToDetail}) {
 return <>
 
 
-<div>
- <p>Escape Rooms</p>
+
+<div className="escapesroom cards search">
+    <h1 className= "cards__title">Escape Rooms</h1>
  <ul>
      {themeEscapes.map(escapeRoom => <Item key={escapeRoom._id} item={escapeRoom} onGoToDetail={onGoToDetail}/>)}
-     <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
  </ul>
 </div>
 

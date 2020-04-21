@@ -7,7 +7,7 @@ const API_URL = process.env.REACT_APP_API_URL
 
 export default (function (id) {
     return (async () => {
-        debugger
+  
         const response = await fetch(`${API_URL}/users/join-group/${id}`, {
             method: 'PATCH',
             headers: {

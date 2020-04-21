@@ -1,19 +1,13 @@
 .detail
     display: flex
     flex-direction: column
-    background-color: thistle
-    margin: 0 0.5rem
-    &__video
-        position: relative
-        padding-bottom: 56.25%; /* 16/9 ratio */
-        padding-top: 30px; /* IE6 workaround*/
-        height: 0
-        overflow: hidden
+    background-color: #d2d2d2
+    width: 100%
     &__img
         width: 95%
         height: auto
         display: block
-        margin: auto
+        margin: 0 auto 1rem
     &__title
         font-size: 2rem
         text-shadow: 2px 2px 3px #eee
@@ -21,3 +15,35 @@
     &__info
         font-size: 1.2rem
         margin: 0 0.5rem
+        font-weight: 600
+        font-family: fantasy
+.player-wrapper
+    position: relative
+
+.react-player
+    position: absolute
+    top: 0
+    left: 0
+.btn
+    &__detail
+        background: #577ff2
+        color: white
+        text-transform: uppercase
+        font-size: 1.1rem
+        border: 0
+        letter-spacing: 0.1em
+        border-radius: 0.3rem
+        box-shadow: 0 0.3rem 0 #006bff
+        position: relative
+        bottom: 0
+        cursor: pointer
+        transition: all ease-out 0.1s
+        display: block
+        margin: 22px auto 15px auto
+        padding: 14px 50px
+        outline: none
+        text-shadow: 3px 3px 3px #006bff
+        text-decoration: none
+        text-align: center
+        min-width: 239px
+        width: 19rem

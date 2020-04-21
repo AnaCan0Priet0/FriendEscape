@@ -16,6 +16,11 @@ import Difficulty from './Difficulty'
 import SelectedDifficulty from './SelectedDifficulty'
 import SelectedThemes from './SelectedThemes'
 import CreateGroup from './CreateGroup'
+import Calendar from './Calendar'
+import Clock from './Clock'
+import Profile from './Profile'
+import UserGroups from './UserGroups'
+import UserGroup from './UserGroup'
 
 
 
@@ -38,5 +43,10 @@ export {
     Difficulty,
     SelectedDifficulty,
     SelectedThemes,
-    CreateGroup
+    CreateGroup,
+    Calendar, 
+    Clock,
+    Profile,
+    UserGroups,
+    UserGroup
 }

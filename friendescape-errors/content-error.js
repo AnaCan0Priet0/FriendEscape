@@ -3,5 +3,6 @@ module.exports = class ContentError extends Error {
         super(...args)
 
         this.name = ContentError.name
+        
     }
 }

@@ -1,13 +1,18 @@
 const { validate } = require('friendescape-utils')
-const { models: { Group, User} } = require('friendescape-data')
+const { models: { User, Group} } = require('friendescape-data')
 const { NotFoundError } = require('friendescape-errors')
+
 module.exports = (userId) => {
 
     validate.string(userId, 'userId')
-    return (async()=> {
- 
-    const groupuser = await User.findById(userid).populate("group").lean()
 
-    return groupuser
+    return (async()=> {
+        const newdate= new Date
+        const groups = await Group.find({"date" : { "$gt" : newdate}}, {subevents : userId}).populate('subevents', 'name').populate('escapeRoom', 'title location punctuation theme difficulty duration price img minplayers maxplayers')
+        
+       
+
+
+    return groups
     })()
 }

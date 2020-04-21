@@ -11,6 +11,14 @@ import retrieveGroups from './retrieve-groups'
 import retrieveEasy from './retrieve-easy'
 import retrieveTheme from './retrieve-theme'
 import joinGroups from './join-group'
+import createGroup from './create-group'
+import deleteGroup from './delete-group'
+import isJoined from './is-joined'
+import isOwner from './is-owner'
+import leaveGroup from './leave-group'
+import deactivateUser from './deactivate-user'
+import groupsUser from './groups-user'
+
 
 export {
     isLoggedIn,
@@ -25,5 +33,13 @@ export {
     retrieveGroups,
     retrieveEasy,
     retrieveTheme,
-    joinGroups
+    joinGroups,
+    createGroup,
+    deleteGroup,
+    isJoined,
+    isOwner,
+    leaveGroup,
+    deactivateUser, 
+    groupsUser
+
 }

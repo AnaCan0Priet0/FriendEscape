@@ -32,8 +32,8 @@ export default function ({ onGoToRegister, onGoToLogin, error }) {
 
     <div className="landing__actions">
     {/* ADD class btn--main */}
-    <a class="btn--main" href="" onClick = {handleGoToLogin}><i class="fas fa-user"></i>Login</a>
-    <a class="btn--main" href="" onClick = {handleGoToRegister}><i class="fas fa-pencil-alt"></i>Register</a>
+    <a className="btn--main" href="" onClick = {handleGoToLogin}><i className="fas fa-user"></i>Login</a>
+    <a className="btn--main" href="" onClick = {handleGoToRegister}><i className="fas fa-pencil-alt"></i>Register</a>
     </div>
     </section>
     </>

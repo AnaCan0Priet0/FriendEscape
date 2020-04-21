@@ -11,7 +11,7 @@ import '@brainhubeu/react-carousel/lib/style.css'
 import '../sass/components/themes.sass'
 
 
-export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction, onHandleHistorical, onHandleCriminal, onHandleFear}) {
+export default function ({user, onHandleProfile, onHandleLogOut, onHandleGoHome, onHandleFiction, onHandleHistorical, onHandleCriminal, onHandleFear}) {
     const {name} = user
 
             
@@ -44,18 +44,25 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
     onHandleFiction()
 }
 
+function handleProfile(event){
+    event.preventDefault()
+    onHandleProfile()
+}
+
     return <>
     {/* Header */}
-   <div className="header">
+    <div className="header">
     <figure>
         <img className='header__logo' src ={Logo} alt="Logo"/>
     </figure>
     <div className='header__username'>
-    <p>Welcome {name}</p>
+    <span>Welcome {name}</span>
+    <i class="fas fa-cog" onClick={handleProfile}></i>
     <i className="fas fa-sign-out-alt" onClick={handleLogOut}></i>
     </div>
     </div>
-    <h1> Choose your favourite theme:</h1>
+
+    <div className="theme">
     <Carousel
   autoPlay={2000}
   animationSpeed={1000}
@@ -73,11 +80,11 @@ export default function ({user, onHandleLogOut, onHandleGoHome, onHandleFiction,
             <div>
             <img src={Fear} onClick={handleFear}/> Fear
             </div>
-            <a onClick={handleGoToHome} className="textMenu" >Go Back</a>
+            
 </Carousel>
+<a href="" onClick = {handleGoToHome} className="btn--locations"><i class="fas fa-undo-alt"></i>Go Back</a>
    
-   
-  
+</div>
     </>
 }
 

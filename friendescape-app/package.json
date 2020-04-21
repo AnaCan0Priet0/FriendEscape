@@ -19,6 +19,7 @@
     "leaflet": "^1.6.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
+    "nodemailer": "^2.7.2",
     "react": "^16.13.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-alert": "^7.0.0",

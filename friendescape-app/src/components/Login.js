@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import '../sass/components/login.sass'
-
 import Logo from '../images/FriendEscape.png'
 import Feedback from './Feedback'
 
 export default function ({ onSubmit, onGoToRegister, error, onMount }) {
+   
     useEffect(() => {
         onMount()
     }, [])
@@ -36,8 +36,7 @@ export default function ({ onSubmit, onGoToRegister, error, onMount }) {
         </figure>
 
         <form action="login__form" onSubmit = {handleSubmit}>
-            {/* {error && <Feedback message={error} level="error"/>} */}
-            <p class="errorMessage">Error sample</p>
+
 
             <div className="login__inputWrapper">
                 <p>
@@ -45,18 +44,20 @@ export default function ({ onSubmit, onGoToRegister, error, onMount }) {
                     <label for="username-input" className="login__label">E-mail:</label>
                 </p>
             </div>
-            <div class="login__inputWrapper">
+            <div className="login__inputWrapper">
                 <p>
                     <input id="password-input" className="login__input" name="password" type="password" placeholder="Insert your password" />
                     <label for="password-input" className="login__label">Password</label>
                 </p>
             </div>
+            <br></br>
+            {error && <Feedback message={error} level="error"/>}
 
-            <button className="btn--main" type="submit"><i class="fas fa-user"></i>Login</button>
-            <button className="btn--main" onClick = {handleGoToRegister}><i class="fas fa-pencil-alt"></i>Register</button>
-
+            <button className="btn--main" type="submit"><i className="fas fa-user"></i>Login</button>
+            <button className="btn--main" onClick = {handleGoToRegister}><i className="fas fa-pencil-alt"></i>Register</button>
+            
           </form>
-        {error && <Feedback message={error} level="error"/>}
+       
     </section>
     </>
 
