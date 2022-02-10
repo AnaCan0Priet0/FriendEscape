@@ -58,6 +58,6 @@
     "bcryptjs": "^2.4.3",
     "friendescape-data": "file:../friendescape-data",
     "jsonwebtoken": "^8.5.1",
-    "node-sass": "^4.13.1"
+    "node-sass": "^7.0.0"
   }
 }
