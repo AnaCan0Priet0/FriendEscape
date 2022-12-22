@@ -21,7 +21,7 @@
     "friendescape-data": "file:../friendescape-data",
     "friendescape-errors": "file:../friendescape-errors",
     "friendescape-utils": "file:../friendescape-utils",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "^5.9.4",
     "morgan": "^1.9.1",
     "nodemailer": "^2.7.2",
